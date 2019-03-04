@@ -14,6 +14,24 @@ curl -X DELETE \
 
 Permanently deletes an user. It cannot be undone. Also immediately cancels all token & information of this user.
 
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject user = User.delete("<user-id>");
+  System.out.println(user.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json
@@ -56,5 +74,3 @@ Permanently deletes an user. It cannot be undone. Also immediately cancels all t
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **id** | *string* | Identifier of user has been deleted |
-
-

@@ -76,7 +76,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Playlist Sample");
-params.put("type", Type.PLAYLIST.getType());
+params.put("type", Type.PLAYLIST.toString());
 
 try {
   JsonObject category = Category.create(params);

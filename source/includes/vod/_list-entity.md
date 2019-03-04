@@ -60,7 +60,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
-params.put("publishToCdn", PublishStatus.NOT_READY.getStatus());
+params.put("publishToCdn", PublishStatus.NOT_READY.toString());
 params.put("metadataId", "<your-folder/playlist-id>");
 
 try {

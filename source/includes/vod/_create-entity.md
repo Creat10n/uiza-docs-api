@@ -95,7 +95,7 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Sample Video");
 params.put("url", "https://example.com/video.mp4");
-params.put("inputType", InputType.HTTP.getInputType());
+params.put("inputType", InputType.HTTP.toString());
 params.put("description", "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
 params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
 params.put("poster", "https://example.com/picture001.jpeg");
