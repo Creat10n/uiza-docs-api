@@ -34,6 +34,30 @@ rescue StandardError => e
 end
 ```
 
+```java
+import io.uiza.model.Analytic;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("start_date", "2019-01-01");
+params.put("end_date", "2019-03-01");
+params.put("type_filter", TypeFilter.COUNTRY.toString());
+
+try {
+  JsonArray analytics = Analytic.getType(params);
+  JsonObject analytic = analytics.get(0).getAsJsonObject();
+  System.out.println(analytic);
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json

@@ -38,6 +38,7 @@ print("status_code", status_code)
 ```php
 <?php
 Uiza\Live::getView(["id" => "your entityId..."])
+?>
 ```
 
 ```java
@@ -47,7 +48,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.getView("<your-live-event-id>");
+  JsonObject live = Live.getView("<live-event-id>");
   System.out.println(live.get("watchnow"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -56,7 +57,6 @@ try {
 } catch (Exception e) {
 
 }
-?>
 ```
 
 ```javascript

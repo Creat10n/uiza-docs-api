@@ -33,6 +33,25 @@ Returns a list of your user. The users are returned sorted by creation date, wit
 
 If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
 
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonArray users = User.list();
+  JsonObject user = users.get(0).getAsJsonObject();
+  System.out.println(user.get("username"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json

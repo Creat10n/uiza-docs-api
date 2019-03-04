@@ -53,6 +53,35 @@ end
 
 Create an user account for workspace
 
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("status", Status.ACTIVE.getVal());
+params.put("username", "user_test");
+params.put("email", "user_test@uiza.io");
+params.put("fullname", "User Test");
+params.put("avatar", "https://exemple.com/avatar.jpeg");
+params.put("dob", "05/15/2018");
+params.put("gender", Gender.MALE.getVal());
+params.put("password", "FMpsr<4[dGPu?B#u");
+params.put("isAdmin", Role.ADMIN.getVal());
+
+try {
+  JsonObject user = User.create(params);
+  System.out.println(user.get("id"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json
@@ -106,5 +135,3 @@ Create an user account for workspace
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **id** | *string* | Identifier of user has been created |
-
-

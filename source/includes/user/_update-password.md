@@ -40,6 +40,28 @@ end
 
 Update password allows Admin or User update their current password.
 
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+Map<String, Object> params = new HashMap<>();
+params.put("oldPassword", "FMpsr<4[dGPu?B#u");
+params.put("newPassword", "S57Eb{:aMZhW=)G$");
+
+try {
+  JsonObject user = User.changePassword("<user-id>", params);
+  System.out.println(user);
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json
@@ -85,5 +107,3 @@ Update password allows Admin or User update their current password.
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **id** | *string* | Identifier of user has been reset password |
-
-

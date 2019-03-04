@@ -29,6 +29,24 @@ end
 
 This API use to log out an user. After logged out, token will be removed.
 
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject user = User.logout();
+  System.out.println(user);
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json
@@ -65,5 +83,3 @@ This API use to log out an user. After logged out, token will be removed.
 | Parameter   | Type   | Description |
 |-------------|--------|-------------------------|
 | **message** | *string* | |
-
-

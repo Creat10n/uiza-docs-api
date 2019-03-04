@@ -73,12 +73,11 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
-params.put("id", "<your-entity-id>");
 params.put("name", "Name edited");
 params.put("description", "Description edited");
 
 try {
-  JsonObject entity = Entity.update(params);
+  JsonObject entity = Entity.update("<entity-id>", params);
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());

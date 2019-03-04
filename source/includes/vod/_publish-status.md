@@ -48,7 +48,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject response = Entity.getStatusPublish("<your-entity-id>");
+  JsonObject response = Entity.getStatusPublish("<entity-id>");
   System.out.println(response.get("status"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
