@@ -49,7 +49,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject live = Live.convertToVod("<your-record-id>");
+  JsonObject live = Live.convertToVod("<record-id>");
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());

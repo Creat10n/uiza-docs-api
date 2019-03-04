@@ -56,7 +56,7 @@ Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
 Uiza.apiKey = "<YOUR_API_KEY>";
 
 try {
-  JsonObject entity = Entity.delete("<your-entity-id>");
+  JsonObject entity = Entity.delete("<entity-id>");
   System.out.println(entity.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());

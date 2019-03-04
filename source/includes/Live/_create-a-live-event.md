@@ -103,11 +103,11 @@ Uiza.apiKey = "<YOUR_API_KEY>";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "<your-live-event-name>");
-params.put("mode", Mode.PULL.getMode());
-params.put("encode", Encode.ENCODE.getEncode());
-params.put("dvr", Dvr.ACTIVE_RECORD.getDvr());
+params.put("mode", Mode.PULL.toString());
+params.put("encode", Encode.ENCODE.getVal());
+params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
 params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
-params.put("resourceMode", ResourceMode.SINGLE.getResourceMode());
+params.put("resourceMode", ResourceMode.SINGLE.toString());
 
 try {
   JsonObject live = Live.create(params);

@@ -11,6 +11,24 @@ curl -X GET \
 
 Retrieves the details of an existing user. You need only supply the unique userId that was returned upon user creation.
 
+```java
+import io.uiza.model.User;
+
+Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
+Uiza.apiKey = "<YOUR_API_KEY>";
+
+try {
+  JsonObject user = User.retrieve("<user-id>");
+  System.out.println(user.get("username"));
+} catch (UizaException e) {
+  System.out.println("Status is: " + e.getStatusCode());
+  System.out.println("Message is: " + e.getMessage());
+  System.out.println("Description link is: " + e.getDescriptionLink());
+} catch (Exception e) {
+
+}
+```
+
 > Example Response
 
 ```json
@@ -73,4 +91,3 @@ Retrieves the details of an existing user. You need only supply the unique userI
 | **email** | *string* | Email (used for login instead of username) |
 | **createdAt** | *datetime* | Time created user |
 | **updatedAt** | *datetime* | Last edited time of user |
-
