@@ -9,6 +9,26 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  users = Uiza::User.list
+  # or users = Uiza::User.list limit: 2, page: 2
+  puts users.first.id
+  puts users.first.username
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
 Returns a list of your user. The users are returned sorted by creation date, with the most recent user appearing first.
 
 If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
@@ -68,9 +88,9 @@ If you use Admin token, you will get all the user. If you use User token, you ca
 
 | Parameter | Type | Description |
 | ------------- | ------------- | ------------- |
-| **id** | *string* | Identifier of user |  
-| **isAdmin** | *integer* | Set this account isAdmin or not (``0`` = Yes, ``1`` = No) |  
-| **username** | *string* | Username of account (used for login instead of email) |  
-| **email** | *string* | Email (used for login instead of username) |    
+| **id** | *string* | Identifier of user |
+| **isAdmin** | *integer* | Set this account isAdmin or not (``0`` = Yes, ``1`` = No) |
+| **username** | *string* | Username of account (used for login instead of email) |
+| **email** | *string* | Email (used for login instead of username) |
 | **createdAt** | *datetime* | Time created user |
 | **updatedAt** | *datetime* | Last edited time of user |
