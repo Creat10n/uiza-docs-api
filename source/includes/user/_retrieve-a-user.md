@@ -9,6 +9,25 @@ curl -X GET \
   -H 'Content-Type: application/json' \
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  user = Uiza::User.retrieve "your-user-id"
+  puts user.id
+  puts user.username
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
 Retrieves the details of an existing user. You need only supply the unique userId that was returned upon user creation.
 
 > Example Response

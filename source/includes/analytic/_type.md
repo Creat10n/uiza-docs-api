@@ -1,4 +1,4 @@
-## Type 
+## Type
 
 > Example Request
 
@@ -8,7 +8,31 @@ curl -X GET \
   -H 'Authorization: uap-7442d4b99eb349b1bb678614e64cf064-1405ee51' \
 ```
 
+```ruby
+require "uiza"
 
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  start_date: "YYYY-MM-DD hh:mm",
+  end_date: "YYYY-MM-DD hh:mm",
+  type_filter: "country"
+}
+
+begin
+  response = Uiza::Analytic.get_type params
+  puts response.first.name
+  puts response.first.total_view
+  puts response.first.percentage_of_view
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
 
 > Example Response
 

@@ -21,6 +21,38 @@ curl -X PUT \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+params = {
+  id: "37d6706e-be91-463e-b3b3-b69451dd4752",
+  status: 1,
+  username: "user_test",
+  email: "user_test@uiza.io",
+  password: "FMpsr<4[dGPu?B#u",
+  gender: 0,
+  dob: "05/15/2018",
+  avatar: "https://exemple.com/avatar.jpeg",
+  fullname: "User Test",
+  isAdmin: 0
+}
+
+begin
+  user = Uiza::User.update params
+  puts user.id
+  puts user.username
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
 Updates the specified user by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
 > Example Response

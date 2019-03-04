@@ -12,6 +12,24 @@ curl -X DELETE \
 }'
 ```
 
+```ruby
+require "uiza"
+
+Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+Uiza.authorization = "your-authorization"
+
+begin
+  user = Uiza::User.delete "your-user-id"
+  puts user.id
+rescue Uiza::Error::UizaError => e
+  puts "description_link: #{e.description_link}"
+  puts "code: #{e.code}"
+  puts "message: #{e.message}"
+rescue StandardError => e
+  puts "message: #{e.message}"
+end
+```
+
 Permanently deletes an user. It cannot be undone. Also immediately cancels all token & information of this user.
 
 > Example Response
