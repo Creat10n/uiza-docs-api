@@ -50,6 +50,17 @@ try {
 }
 ```
 
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/user"
+)
+
+params := &uiza.UserIDParams{ID:uiza.String("d0b81f08-0a93-4b0e-a6b4-15027349b7d6")}
+response, _ := user.Delete(params)
+log.Printf("%s\n", response)
+```
+
 ```csharp
 using Uiza.Net.Services;
 

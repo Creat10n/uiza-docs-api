@@ -47,6 +47,17 @@ try {
 }
 ```
 
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/user"
+)
+
+params := &uiza.UserIDParams{}
+response, _ := user.LogOut(params)
+log.Printf("%s\n", response)
+```
+
 ```csharp
 using Uiza.Net.Services;
 
