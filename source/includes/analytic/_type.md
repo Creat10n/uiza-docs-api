@@ -58,6 +58,24 @@ try {
 }
 ```
 
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var getType = UizaServices.Analytic.GetType(new AnalyticTypeParameter()
+{
+    StartDate = @"2019-01-01",
+    EndDate = @"2019-03-01",
+    TypeFilter = TypeFilter.Country
+});
+Console.WriteLine(string.Format("Get Type Success, total record {0}", getType.Data.Count));
+```
+
 > Example Response
 
 ```json

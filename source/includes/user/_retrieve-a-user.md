@@ -48,6 +48,29 @@ try {
 }
 ```
 
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.User.Create(new CreatUserParameter()
+{
+  Status = UserStatus.Active,
+  UserName = Guid.NewGuid().ToString(),
+  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
+  PassWord = Guid.NewGuid().ToString();,
+  FullName = Guid.NewGuid().ToString(),
+  Avatar = "https://static.uiza.io/uiza_logo_128.png"
+});
+
+var retrieveResult = UizaServices.User.Retrieve((string)result.Data.id);
+Console.WriteLine(string.Format("Get User Id = {0} Success", retrieveResult.Data.id));
+```
+
 > Example Response
 
 ```json

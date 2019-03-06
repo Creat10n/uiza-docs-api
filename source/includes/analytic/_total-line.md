@@ -56,6 +56,24 @@ try {
 }
 ```
 
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var getTotalLine = UizaServices.Analytic.GetTotalLine(new AnalyticTotalLineParameter()
+{
+    StartDate = @"2019-02-28 20:00",
+    EndDate = @"2019-03-01 20:00",
+    Metric = MetricType.RebufferCount
+});
+Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getTotalLine.Data.Count));
+```
+
 > Example Response
 
 ```json

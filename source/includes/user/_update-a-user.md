@@ -84,6 +84,37 @@ try {
 }
 ```
 
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var result = UizaServices.User.Create(new CreatUserParameter()
+{
+  Status = UserStatus.Active,
+  UserName = Guid.NewGuid().ToString(),
+  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
+  PassWord = Guid.NewGuid().ToString();,
+  FullName = Guid.NewGuid().ToString(),
+  Avatar = "https://static.uiza.io/uiza_logo_128.png"
+});
+
+var updateResult = UizaServices.User.Update(new UpdateUserParameter()
+{
+  Id = (string)result.Data.id,
+  Status = UserStatus.Active,
+  UserName = Guid.NewGuid().ToString(),
+  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
+  PassWord = Guid.NewGuid().ToString()
+});
+
+Console.WriteLine(string.Format("Update User Id = {0} Success", updateResult.Data.id));
+```
+
 > Example Response
 
 ```json
