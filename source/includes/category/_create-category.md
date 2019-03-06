@@ -100,7 +100,11 @@ uiza.category.create({
   'orderNumber': 1,
   'description': 'Folder description',
   'icon': 'https://exemple.com/icon.png'
-}).then((res) => console.log(res)).catch((err) => console.log(err));
+}).then((res) => {
+  //Identifier of category has been created
+}).catch((err) => {
+  //Error
+});
 ```
 
 ```go
