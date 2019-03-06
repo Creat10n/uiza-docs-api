@@ -80,6 +80,20 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.analytic.get_total_line({
+  'start_date': '2019-02-28 00:00',
+  'end_date': '2019-03-01 23:00',
+  'metric': 'rebuffer_count'
+}).then((res) => {
+  //Identifier of get_total_line
+}).catch((err) => {
+  //Error
+});
+```
+
 ```go
 import (
   "github.com/uizaio/api-wrapper-go"

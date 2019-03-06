@@ -80,6 +80,19 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+/** get_type */
+uiza.analytic.get_type({
+  'start_date': '2019-01-01',
+  'end_date': '2019-03-01',
+  'type_filter': 'country'
+}).then((res) => {
+  //Error
+});
+```
+
 ```go
 import (
   "github.com/uizaio/api-wrapper-go"

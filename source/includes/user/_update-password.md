@@ -85,6 +85,20 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.change_password({
+  'id': '263bbbb8-c0c9-4e1f-9123-af3a3fd46b80',
+  'oldPassword': 'FMpsr<4[dGPu?B#u',
+  'newPassword': 'S57Eb{:aMZhW=)G$'
+}).then((res) => {
+  // Identifier of user has been reset password
+}).catch((err) => {
+  //Error
+});
+```
+
 ```go
 import (
   uiza "github.com/uizaio/api-wrapper-go"
