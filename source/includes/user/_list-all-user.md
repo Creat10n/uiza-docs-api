@@ -52,6 +52,19 @@ try {
 }
 ```
 
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var listResult = UizaServices.User.List();
+Console.WriteLine(string.Format("List User Success, total record {0}", listResult.Data.Count));
+```
+
 > Example Response
 
 ```json

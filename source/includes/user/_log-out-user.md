@@ -47,6 +47,19 @@ try {
 }
 ```
 
+```csharp
+using Uiza.Net.Services;
+
+UizaConfiguration.SetupUiza(new UizaConfigOptions
+{
+  ApiKey = "your-ApiKey",
+  ApiBase = "your-workspace-api-domain.uiza.co"
+});
+
+var logOutResult = UizaServices.User.Logout();
+Console.WriteLine("Logout Success");
+```
+
 > Example Response
 
 ```json
