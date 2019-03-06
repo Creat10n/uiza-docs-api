@@ -1,5 +1,9 @@
 ## List all users
 
+Returns a list of your user. The users are returned sorted by creation date, with the most recent user appearing first.
+
+If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
+
 > Example Request
 
 ```shell
@@ -29,9 +33,11 @@ rescue StandardError => e
 end
 ```
 
-Returns a list of your user. The users are returned sorted by creation date, with the most recent user appearing first.
-
-If you use Admin token, you will get all the user. If you use User token, you can only get the information of that user
+```php
+<?
+Uiza\User::list();
+?>
+```
 
 ```java
 import io.uiza.model.User;

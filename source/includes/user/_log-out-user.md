@@ -1,5 +1,7 @@
 ## Log Out
 
+This API use to log out an user. After logged out, token will be removed.
+
 > Example Request
 
 ```shell
@@ -27,7 +29,11 @@ rescue StandardError => e
 end
 ```
 
-This API use to log out an user. After logged out, token will be removed.
+```php
+<?
+Uiza\User::logOut();
+?>
+```
 
 ```java
 import io.uiza.model.User;

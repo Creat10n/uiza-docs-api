@@ -1,5 +1,7 @@
 ## Delete an user
 
+Permanently deletes an user. It cannot be undone. Also immediately cancels all token & information of this user.
+
 > Example Request
 
 ```shell
@@ -30,7 +32,11 @@ rescue StandardError => e
 end
 ```
 
-Permanently deletes an user. It cannot be undone. Also immediately cancels all token & information of this user.
+```php
+<?
+Uiza\User::delete("id user");
+?>
+```
 
 ```java
 import io.uiza.model.User;

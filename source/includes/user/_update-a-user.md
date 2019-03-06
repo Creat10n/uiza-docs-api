@@ -1,5 +1,7 @@
 ## Update an user
 
+Updates the specified user by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
 > Example Request
 
 ```shell
@@ -53,7 +55,23 @@ rescue StandardError => e
 end
 ```
 
-Updates the specified user by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+```php
+<?
+$params = [
+  "status"  => 1,
+  "username" => "test",
+  "email" => "abc_test@uiza.io",
+  "fullname" => "Test",
+  "avatar" => "https://exemple.com/avatar.jpeg",
+  "dob" => "05/15/2018",
+  "gender" => 0,
+  "password" => "FMpsr<4[dGPu?B#u",
+  "isAdmin" => 1
+];
+
+Uiza\User::update("id user", $params);
+?>
+```
 
 ```java
 import io.uiza.model.User;

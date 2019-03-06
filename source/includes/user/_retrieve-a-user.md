@@ -1,5 +1,7 @@
 ## Retrieve an user
 
+Retrieves the details of an existing user. You need only supply the unique userId that was returned upon user creation.
+
 > Example Request
 
 ```shell
@@ -28,7 +30,11 @@ rescue StandardError => e
 end
 ```
 
-Retrieves the details of an existing user. You need only supply the unique userId that was returned upon user creation.
+```php
+<?
+Uiza\User::retrieve("id user");
+?>
+```
 
 ```java
 import io.uiza.model.User;
