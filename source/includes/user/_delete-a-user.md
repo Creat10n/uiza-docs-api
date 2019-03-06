@@ -50,6 +50,16 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.delete('9e4df7c2-111d-4107-9c2e-6d2cb13c06f0').then((res) => {
+  //  Result of user has been deleted
+}).catch((err) => {
+  //Error
+});
+```
+
 ```go
 import (
   uiza "github.com/uizaio/api-wrapper-go"

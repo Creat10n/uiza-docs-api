@@ -84,6 +84,27 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.update({
+  'id': '9e4df7c2-111d-4107-9c2e-6d2cb13c06f0',
+  'status': 0,
+  'username': 'user_test_110',
+  'email': 'user_test@uiza.io',
+  'avatar': 'https://exemple.com/avatar.jpeg',
+  'fullname': 'User Test',
+  'dob': '05/15/2018',
+  'gender': 0,
+  'password': '123456789',
+  'isAdmin': 1
+}).then((res) => {
+  // Identifier of user wanted to update
+}).catch((err) => {
+  //Error
+});
+```
+
 ```go
 import (
   uiza "github.com/uizaio/api-wrapper-go"

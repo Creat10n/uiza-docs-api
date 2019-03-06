@@ -52,6 +52,16 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.list().then((res) => {
+  //Get list of user including all detail.
+}).catch((err) => {
+  //Error
+});
+```
+
 ```go
 import (
   uiza "github.com/uizaio/api-wrapper-go"

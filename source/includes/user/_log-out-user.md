@@ -47,6 +47,17 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.log_out()
+  .then((res) => {
+    // Identifier of task publish
+  }).catch((err) => {
+    //Error
+  });
+```
+
 ```go
 import (
   uiza "github.com/uizaio/api-wrapper-go"

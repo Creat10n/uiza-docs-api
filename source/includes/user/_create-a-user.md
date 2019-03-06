@@ -82,6 +82,26 @@ try {
 }
 ```
 
+```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.user.create({
+  'status': 1,
+  'username': 'user_test_1',
+  'email': 'user_test@uiza.io',
+  'fullname': 'User Test',
+  'avatar': 'https://exemple.com/avatar.jpeg',
+  'dob': '05/15/2018',
+  'gender': 0,
+  'password': 'FMpsr<4[dGPu?B#u',
+  'isAdmin': 1
+}).then((res) => {
+  // Identifier of user has been created
+}).catch((err) => {
+  // Error
+});
+```
+
 ```go
 import (
   uiza "github.com/uizaio/api-wrapper-go"
