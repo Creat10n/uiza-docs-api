@@ -1,5 +1,7 @@
 ## Create an user
 
+Create an user account for workspace
+
 > Example Request
 
 ```shell
@@ -51,7 +53,23 @@ rescue StandardError => e
 end
 ```
 
-Create an user account for workspace
+```php
+<?
+$params = [
+  "status"  => 1,
+  "username" => "test",
+  "email" => "abc_test@uiza.io",
+  "fullname" => "Test",
+  "avatar" => "https://exemple.com/avatar.jpeg",
+  "dob" => "05/15/2018",
+  "gender" => 0,
+  "password" => "FMpsr<4[dGPu?B#u",
+  "isAdmin" => 1
+];
+
+Uiza\User::create($params);
+?>
+```
 
 ```java
 import io.uiza.model.User;

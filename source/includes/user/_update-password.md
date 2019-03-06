@@ -1,5 +1,7 @@
 ## Update password
 
+Update password allows Admin or User update their current password.
+
 > Example Request
 
 ```shell
@@ -38,7 +40,17 @@ rescue StandardError => e
 end
 ```
 
-Update password allows Admin or User update their current password.
+```php
+<?
+$params = [
+  "id" => "id user",
+  "oldPassword" => "FMpsr<4[dGPu?B#u",
+  "newPassword" => "S57Eb{:aMZhW=)G$"
+];
+
+Uiza\User::changePassword($params);
+?>
+```
 
 ```java
 import io.uiza.model.User;

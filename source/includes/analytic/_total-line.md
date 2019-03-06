@@ -32,6 +32,18 @@ rescue StandardError => e
 end
 ```
 
+```php
+<?
+$params = [
+  "start_date" => "YYYY-MM-DD hh:mm",
+  "end_date" => "YYYY-MM-DD hh:mm",
+  "metric" => "rebuffer_count"
+];
+
+Uiza\Analytic::getTotalLine($params);
+?>
+```
+
 ```java
 import io.uiza.model.Analytic;
 

@@ -34,6 +34,18 @@ rescue StandardError => e
 end
 ```
 
+```php
+<?
+$params = [
+  "start_date" => "YYYY-MM-DD",
+  "end_date" => "YYYY-MM-DD",
+  "type_filter" => "country"
+];
+
+Uiza\Analytic::getType($params);
+?>
+```
+
 ```java
 import io.uiza.model.Analytic;
 
