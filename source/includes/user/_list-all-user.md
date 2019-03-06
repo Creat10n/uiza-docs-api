@@ -52,6 +52,17 @@ try {
 }
 ```
 
+```go
+import (
+  uiza "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/user"
+)
+
+params := &uiza.UserListParams{}
+response, _ := user.List(params)
+log.Printf("%s\n", response)
+```
+
 ```csharp
 using Uiza.Net.Services;
 

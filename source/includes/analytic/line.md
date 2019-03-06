@@ -57,6 +57,24 @@ try {
 }
 ```
 
+```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/analytic"
+)
+
+rebufferCount := uiza.AnalyticMetricRebufferCount
+params := &uiza.AnalyticLineParams{
+  StartDate:  uiza.String("2019-01-01"),
+  EndDate:  uiza.String("2019-02-28"),
+  Type:  &rebufferCount,
+}
+response, _ := analytic.GetLine(params)
+for _, v := range response {
+  log.Printf("%v\n", v)
+}
+```
+
 ```csharp
 using Uiza.Net.Services;
 
@@ -68,9 +86,9 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 var getLine = UizaServices.Analytic.GetLine(new AnalyticLineParameter()
 {
-    StartDate = @"2019-01-01",
-    EndDate = @"2019-03-01",
-    Type = LineType.RebufferCount
+  StartDate = @"2019-01-01",
+  EndDate = @"2019-03-01",
+  Type = LineType.RebufferCount
 });
 Console.WriteLine(string.Format("Get Line Success, total record {0}", getLine.Data.Count));
 ```

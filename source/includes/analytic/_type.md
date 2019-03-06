@@ -58,6 +58,24 @@ try {
 }
 ```
 
+```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/analytic"
+)
+
+analyticTypeFilter := uiza.AnalyticTypeFilterCountry
+params := &uiza.AnalyticTypeParams{
+  StartDate:  uiza.String("2019-01-01"),
+  EndDate:  uiza.String("2019-02-28"),
+  TypeFilter:  &analyticTypeFilter,
+}
+response, _ := analytic.GetType(params)
+for _, v := range response {
+  log.Printf("%v\n", v)
+}
+```
+
 ```csharp
 using Uiza.Net.Services;
 
@@ -69,9 +87,9 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 var getType = UizaServices.Analytic.GetType(new AnalyticTypeParameter()
 {
-    StartDate = @"2019-01-01",
-    EndDate = @"2019-03-01",
-    TypeFilter = TypeFilter.Country
+  StartDate = @"2019-01-01",
+  EndDate = @"2019-03-01",
+  TypeFilter = TypeFilter.Country
 });
 Console.WriteLine(string.Format("Get Type Success, total record {0}", getType.Data.Count));
 ```
