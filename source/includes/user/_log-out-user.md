@@ -29,6 +29,12 @@ rescue StandardError => e
 end
 ```
 
+```python
+res, status_code = User().logout()
+
+print("status_code", status_code)
+```
+
 ```php
 <?
 Uiza\User::logOut();

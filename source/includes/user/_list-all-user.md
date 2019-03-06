@@ -33,6 +33,12 @@ rescue StandardError => e
 end
 ```
 
+```python
+res, status_code = User().list()
+
+print("status_code", status_code)
+```
+
 ```php
 <?
 Uiza\User::list();

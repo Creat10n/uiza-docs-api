@@ -32,6 +32,13 @@ rescue StandardError => e
 end
 ```
 
+```python
+res, status_code = User().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
 ```php
 <?
 Uiza\User::delete("id user");

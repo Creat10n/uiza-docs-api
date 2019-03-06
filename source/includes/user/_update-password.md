@@ -40,6 +40,17 @@ rescue StandardError => e
 end
 ```
 
+```python
+res, status_code = User().change_password(
+  id="9f1cd871-9244-48a1-a233-846a3b540741",
+  old_password="S57Eb{:aMZhW=)G$",
+  new_password="FMpsr<4[dGPu?B#u"
+)
+
+print("id", res.id)
+print("status_code", status_code)
+```
+
 ```php
 <?
 $params = [

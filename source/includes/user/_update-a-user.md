@@ -55,6 +55,13 @@ rescue StandardError => e
 end
 ```
 
+```python
+res, status_code = User().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", status=1)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
 ```php
 <?
 $params = [
