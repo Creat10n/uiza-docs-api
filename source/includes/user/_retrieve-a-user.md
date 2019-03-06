@@ -30,6 +30,15 @@ rescue StandardError => e
 end
 ```
 
+```python
+user_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+
+res, status_code = User().retrieve(user_id)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
 ```php
 <?
 Uiza\User::retrieve("id user");

@@ -33,6 +33,16 @@ rescue StandardError => e
 end
 ```
 
+```python
+res, status_code = Analytic().get_line(
+  start_date="2018-11-01 20:00",
+  end_date="2019-11-02 20:00",
+  type="video_startup_time"
+)
+
+print("status_code", status_code)
+```
+
 ```php
 <?
 $params = [

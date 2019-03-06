@@ -53,6 +53,27 @@ rescue StandardError => e
 end
 ```
 
+```python
+from uiza.api_resources.user import User
+
+user_data = {
+  "status": 1,
+  "username": "test_admin_pythonvn",
+  "email": "user_test@uiza.io",
+  "fullname": "User Test",
+  "avatar": "https://exemple.com/avatar.jpeg",
+  "dob": "05/15/2018",
+  "gender": 0,
+  "password": "FMpsr<4[dGPu?B#u",
+  "isAdmin": 1
+}
+
+res, status_code = User().create(**user_data)
+
+print("id: ", res.id)
+print("status_code", status_code)
+```
+
 ```php
 <?
 $params = [
