@@ -148,15 +148,15 @@ import (
 )
 
 params := &uiza.UserCreateParams{
-  Status:   uiza.Int64(1),
+  Status: uiza.Int64(1),
   Username: uiza.String("user_test_go"),
-  Email:    uiza.String("user_test@uiza.io"),
+  Email: uiza.String("user_test@uiza.io"),
   Password: uiza.String("FMpsr<4[dGPu?B#u"),
-  Avatar:   uiza.String("https://exemple.com/avatar.jpeg"),
+  Avatar: uiza.String("https://exemple.com/avatar.jpeg"),
   Fullname: uiza.String("User Test Go"),
-  Dob:      uiza.String("05/15/2018"),
-  Gender:   uiza.Int64(0),
-  IsAdmin:  uiza.Int64(1),
+  Dob: uiza.String("05/15/2018"),
+  Gender: uiza.Int64(0),
+  IsAdmin: uiza.Int64(1),
 }
 response, _ := user.Create(params)
 log.Printf("%s\n", response)

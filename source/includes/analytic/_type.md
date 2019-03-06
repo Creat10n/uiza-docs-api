@@ -101,9 +101,9 @@ import (
 
 analyticTypeFilter := uiza.AnalyticTypeFilterCountry
 params := &uiza.AnalyticTypeParams{
-  StartDate:  uiza.String("2019-01-01"),
-  EndDate:  uiza.String("2019-02-28"),
-  TypeFilter:  &analyticTypeFilter,
+  StartDate: uiza.String("2019-01-01"),
+  EndDate: uiza.String("2019-02-28"),
+  TypeFilter: &analyticTypeFilter,
 }
 response, _ := analytic.GetType(params)
 for _, v := range response {

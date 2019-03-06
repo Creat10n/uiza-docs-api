@@ -74,6 +74,11 @@ uiza.category.list()
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 params := &uiza.CategoryListParams{
   Page:uiza.Int64(2),
   Limit:uiza.Int64(10),

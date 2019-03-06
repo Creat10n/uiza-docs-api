@@ -106,7 +106,7 @@ import (
 )
 
 params := &uiza.UserChangePasswordParams{
-  ID:          uiza.String("263bbbb8-c0c9-4e1f-9123-af3a3fd46b80"),
+  ID: uiza.String("263bbbb8-c0c9-4e1f-9123-af3a3fd46b80"),
   OldPassword: uiza.String("FMpsr<4[dGPu?B#u"),
   NewPassword: uiza.String("S57Eb{:aMZhW=)G$"),
 }

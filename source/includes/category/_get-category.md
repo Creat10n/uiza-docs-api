@@ -71,6 +71,11 @@ uiza.category.retrieve('b8f2a6ec-d45f-4cc0-a32d-35ad0ad9f1b6')
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 params := &uiza.CategoryIDParams{ID :uiza.String("Your category ID")}
 response, _ := category.Retrieve(params)
 log.Printf("%s\n", response)

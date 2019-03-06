@@ -137,16 +137,16 @@ import (
 )
 
 params := &uiza.UserUpdateParams{
-  ID:       uiza.String("d0b81f08-0a93-4b0e-a6b4-15027349b7d6"),
-  Status:   uiza.Int64(0),
+  ID: uiza.String("d0b81f08-0a93-4b0e-a6b4-15027349b7d6"),
+  Status: uiza.Int64(0),
   Username: uiza.String("user_test_go"),
-  Email:    uiza.String("user_test_go@uiza.io"),
+  Email: uiza.String("user_test_go@uiza.io"),
   Password: uiza.String("FMpsr<4[dGPu?B#u"),
-  Avatar:   uiza.String("https://exemple.com/avatar1.jpeg"),
+  Avatar: uiza.String("https://exemple.com/avatar1.jpeg"),
   Fullname: uiza.String("User Test"),
-  Dob:      uiza.String("02/28/2011"),
-  Gender:   uiza.Int64(1),
-  IsAdmin:  uiza.Int64(0),
+  Dob: uiza.String("02/28/2011"),
+  Gender: uiza.Int64(1),
+  IsAdmin: uiza.Int64(0),
 }
 response, _ := user.Update(params)
 log.Printf("%s\n", response)

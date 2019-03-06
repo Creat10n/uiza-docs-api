@@ -100,9 +100,9 @@ import (
 
 rebufferCount := uiza.AnalyticMetricRebufferCount
 params := &uiza.AnalyticLineParams{
-  StartDate:  uiza.String("2019-01-01"),
-  EndDate:  uiza.String("2019-02-28"),
-  Type:  &rebufferCount,
+  StartDate: uiza.String("2019-01-01"),
+  EndDate: uiza.String("2019-02-28"),
+  Type:&rebufferCount,
 }
 response, _ := analytic.GetLine(params)
 for _, v := range response {

@@ -108,6 +108,11 @@ uiza.category.create({
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryCreateParams{
   Name: uiza.String(""),

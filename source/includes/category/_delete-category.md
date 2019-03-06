@@ -77,6 +77,11 @@ uiza.category.delete('c0d3e5f2-9ae7-4e46-94a2-29612d562db0')
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 params := &uiza.CategoryIDParams{ID: uiza.String("Your category ID")}
 response, _ := category.Delete(params)
 log.Printf("%s", response)

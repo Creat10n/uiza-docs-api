@@ -102,9 +102,9 @@ import (
 
 metric := uiza.AnalyticMetricRebufferCount
 params := &uiza.AnalyticTotalLineParams{
-  StartDate:  uiza.String("2018-11-01 08:00"),
-  EndDate:  uiza.String("2019-11-19 14:00"),
-  Metric:  &metric,
+  StartDate: uiza.String("2018-11-01 08:00"),
+  EndDate: uiza.String("2019-11-19 14:00"),
+  Metric: &metric,
 }
 
 response, _ := analytic.GetTotalLine(params)

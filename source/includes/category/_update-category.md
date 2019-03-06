@@ -99,6 +99,11 @@ uiza.category.update({
 ```
 
 ```go
+import (
+  "github.com/uizaio/api-wrapper-go"
+  "github.com/uizaio/api-wrapper-go/category"
+)
+
 var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryUpdateParams{
   ID: uiza.String("Your category ID"),
