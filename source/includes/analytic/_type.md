@@ -35,32 +35,54 @@ end
 ```
 
 ```python
-res, status_code = Analytic().get_type(
-  start_date="2018-11-01 20:00",
-  end_date="2019-11-02 20:00",
-  type_filter="country"
-)
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.analytic import Analytic
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Analytic().get_type(
+    start_date="2018-11-01 20:00",
+    end_date="2019-11-02 20:00",
+    type_filter="country"
+  )
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "start_date" => "YYYY-MM-DD",
   "end_date" => "YYYY-MM-DD",
   "type_filter" => "country"
 ];
 
-Uiza\Analytic::getType($params);
+try {
+  Uiza\Analytic::getType($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Analytic;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("start_date", "2019-01-01");
@@ -99,6 +121,11 @@ import (
   "github.com/uizaio/api-wrapper-go/analytic"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 analyticTypeFilter := uiza.AnalyticTypeFilterCountry
 params := &uiza.AnalyticTypeParams{
   StartDate: uiza.String("2019-01-01"),
@@ -116,17 +143,24 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var getType = UizaServices.Analytic.GetType(new AnalyticTypeParameter()
+try
 {
-  StartDate = @"2019-01-01",
-  EndDate = @"2019-03-01",
-  TypeFilter = TypeFilter.Country
-});
-Console.WriteLine(string.Format("Get Type Success, total record {0}", getType.Data.Count));
+  var getType = UizaServices.Analytic.GetType(new AnalyticTypeParameter()
+  {
+    StartDate = @"2019-01-01",
+    EndDate = @"2019-03-01",
+    TypeFilter = TypeFilter.Country
+  });
+  Console.WriteLine(string.Format("Get Type Success, total record {0}", getType.Data.Count));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

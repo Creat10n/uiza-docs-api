@@ -30,22 +30,44 @@ end
 ```
 
 ```python
-res, status_code = User().logout()
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.user import User
+from uiza.authorization import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.api_key = "your-authorization"
+
+try:
+  res, status_code = User().logout()
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
-Uiza\User::logOut();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\User::logOut();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);           	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.User;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject user = User.logout();
@@ -76,6 +98,11 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.UserIDParams{}
 response, _ := user.LogOut(params)
 log.Printf("%s\n", response)
@@ -86,12 +113,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var logOutResult = UizaServices.User.Logout();
-Console.WriteLine("Logout Success");
+try
+{
+  var logOutResult = UizaServices.User.Logout();
+  Console.WriteLine("Logout Success");
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

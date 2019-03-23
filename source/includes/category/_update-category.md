@@ -44,28 +44,50 @@ end
 ```
 
 ```python
-res, status_code = Category().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", name="Update title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.category import Category
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Category().update(id="your-category-id", name="Update title")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "name" => "Folder edited",
   "type" => "folder"
 ];
 
-Uiza\Category::update("key ..", $params);
+try {
+  Uiza\Category::update("your-category-id", $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Playlist Sample");
@@ -84,8 +106,10 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.category.update({
-  'id': 'c0d3e5f2-9ae7-4e46-94a2-29612d562db0',
+  'id': 'your-category-id',
   'name': 'Folder sample 312',
   'type': 'folder',
   'orderNumber': 1,
@@ -104,9 +128,14 @@ import (
   "github.com/uizaio/api-wrapper-go/category"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 var typeCategory = uiza.CategoryFolderType
 params := &uiza.CategoryUpdateParams{
-  ID: uiza.String("Your category ID"),
+  ID: uiza.String("your-category-id"),
   Name: uiza.String(""),
   Type: &typeCategory,
   Description:uiza.String(""),
@@ -123,18 +152,25 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var resultUpdate = UizaServices.Category.Update(new UpdateCategoryParameter()
+try
 {
-  Id = createResult.Data.id,
-  Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
-  Type = CategoryTypes.PlayList
-});
+  var resultUpdate = UizaServices.Category.Update(new UpdateCategoryParameter()
+  {
+    Id = createResult.Data.id,
+    Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
+    Type = CategoryTypes.PlayList
+  });
 
-Console.WriteLine(string.Format("Update Category Id = {0} Success", resultUpdate.Data.id));
+  Console.WriteLine(string.Format("Update Category Id = {0} Success", resultUpdate.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Update information of category

@@ -40,27 +40,50 @@ end
 ```
 
 ```python
-res, status_code = Callback().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", method="POST")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.callback import Callback
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Callback().update(id="your-callback-id", method="POST")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "url" => "https://callback-url.uiza.co",
   "method" => "POST"
 ];
-Uiza\Callback::update('id callback', $params);
+
+try {
+  Uiza\Callback::update("your-callback-id", $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Callback;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("url", "<your-server-callback>");
@@ -83,7 +106,7 @@ const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-a
 
 /** create */
 uiza.callback.update({
-  'id': '1b1f97f9-9afd-46d1-a2e1-f3b3896374df',
+  'id': 'your-callback-id',
   'url': 'https://callback-url.uiza.co',
   'method': 'GET'
 }).then((res) => {
@@ -99,9 +122,14 @@ import (
   "github.com/uizaio/api-wrapper-go/callback"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 callbackMethodPOST := uiza.HTTPMethodPost
 params := &uiza.CallbackUpdateParams{
-	ID:    uiza.String("72d59f91-88c6-458b-9d45-489d2194a09f"),
+	ID:    uiza.String("your-callback-id"),
 	Url:    uiza.String("https://callback-url.uiza.commm"),
 	Method: &callbackMethodPOST,
 }
@@ -115,18 +143,25 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var resultUpdate = UizaServices.Callback.Update(new UpdateCallbackParameter()
+try
 {
-  Id = createResult.Data.id,
-  Url = "https://callback-url.uiza.co/update",
-  Method = CallbackMethodTypes.Post
-});
+  var resultUpdate = UizaServices.Callback.Update(new UpdateCallbackParameter()
+  {
+    Id = createResult.Data.id,
+    Url = "https://callback-url.uiza.co/update",
+    Method = CallbackMethodTypes.Post
+  });
 
-Console.WriteLine(string.Format("Update Callback Id = {0} Success", resultUpdate.Data.id));
+  Console.WriteLine(string.Format("Update Callback Id = {0} Success", resultUpdate.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 This API will allow you setup a callback to your server when an entity is completed for upload or public

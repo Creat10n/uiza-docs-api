@@ -28,22 +28,44 @@ end
 ```
 
 ```python
-res, status_code = Live().list_recorded()
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Live().list_recorded()
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Live::listRecorded();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Live::listRecorded();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Live;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonArray liveList = Live.listRecorded();
@@ -76,6 +98,11 @@ import (
   "github.com/uizaio/api-wrapper-go/live"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.LiveListRecordedParams{
   Page:uiza.Int64(1),
   Limit:uiza.Int64(2),
@@ -92,12 +119,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var listResult = UizaServices.Live.ListRecorded();
-Console.WriteLine(string.Format("Success Get List All Recorded Files, total record {0}", listResult.MetaData != null ? listResult.MetaData.total : 0));
+try
+{
+  var listResult = UizaServices.Live.ListRecorded();
+  Console.WriteLine(string.Format("Success Get List All Recorded Files, total record {0}", listResult.MetaData != null ? listResult.MetaData.total : 0));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Retrieves list of recorded file after streamed (only available when your live event has turned on Record feature)

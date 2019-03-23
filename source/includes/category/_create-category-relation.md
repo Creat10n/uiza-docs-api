@@ -39,30 +39,52 @@ end
 ```
 
 ```python
-res, status_code = Category().create_relation(
-  entity_id="16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
-  metadata_ids=["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
-)
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.category import Category
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Category().create_relation(
+    entity_id="your-entity-id",
+    metadata_ids=["your-category-id-1","your-category-id-2"]
+  )
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
-  "entityId" => "16ab25d3-fd0f-4568-8aa0-0339bbfd674f",
-  "metadataIds" => ["095778fa-7e42-45cc-8a0e-6118e540b61d","e00586b9-032a-46a3-af71-d275f01b03cf"]
+  "entityId" => "your-entity-id",
+  "metadataIds" => ["your-category-id-1","your-category-id-2"]
 ];
 
-Uiza\Category::createRelation($params);
+try {
+  Uiza\Category::createRelation($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("entityId", "<entity-id>");
@@ -82,9 +104,11 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.category.create_relation({
-  'entityId': '16ab25d3-fd0f-4568-8aa0-0339bbfd674f',
-  'metadataIds': ['095778fa-7e42-45cc-8a0e-6118e540b61d','e00586b9-032a-46a3-af71-d275f01b03cf']
+  'entityId': 'your-entity-id',
+  'metadataIds': ['your-category-id-1','your-category-id-2']
 }).then((res) => {
     //Identifier of relation between entity and category has been created
   }).catch((err) => {
@@ -98,11 +122,16 @@ import (
   "github.com/uizaio/api-wrapper-go/category"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.CategoryRelationParams{
-  EntityId: uiza.String("16ab25d3-fd0f-4568-8aa0-0339bbfd674f"),
+  EntityId: uiza.String("your-entity-id"),
   MetadataIds: []*string{
-  uiza.String("095778fa-7e42-45cc-8a0e-6118e540b61d"),
-  uiza.String("e00586b9-032a-46a3-af71-d275f01b03cf"),
+  uiza.String("your-category-id-1"),
+  uiza.String("your-category-id-2"),
 }}
 response, _ := category.CreateRelation(params)
 for _, v := range response {
@@ -115,16 +144,23 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var createCategoryRelationResult = UizaServices.Category.CreateRelation(new CategoryRelationParameter()
+try
 {
-  EntityId = "Entity id",
-  MetadataIds = listMetadata
-});
-Console.WriteLine(string.Format("Create Category Relation Success, total record {0}", createCategoryRelationResult.MetaData.result));
+  var createCategoryRelationResult = UizaServices.Category.CreateRelation(new CategoryRelationParameter()
+  {
+    EntityId = "your-entity-id",
+    MetadataIds = listMetadata
+  });
+  Console.WriteLine(string.Format("Create Category Relation Success, total record {0}", createCategoryRelationResult.MetaData.result));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Add relation for entity and category

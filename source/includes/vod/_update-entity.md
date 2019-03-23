@@ -48,29 +48,45 @@ end
 ```
 
 ```python
-res, status_code = Entity().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", name="Update title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().update(id="your-entity-id", name="Update title")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$entity = Uiza\Entity::retrieve("key ... ");
-$entity->name = "Name change";
-$entity->save();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Entity::update("key ..", ["name" => "Name change"]);
+try {
+  Uiza\Entity::update("your-enity-id", ["name" => "Name change"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "Name edited");
@@ -89,8 +105,10 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.entity.update({
-  'id': '16de511f-5.......',
+  'id': 'your-entity-id',
   'name': '--Title edited--',
 }).then((res) => {
   // Identifier of entity has been updated
@@ -104,8 +122,14 @@ import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/entity"
 )
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.EntityUpdateParams{
-  ID: uiza.String("Your entity ID"),
+  ID: uiza.String("your-entity-id"),
   Name: uiza.String("Update entity name"),
 }
 response, _ := entity.Update(params)
@@ -117,20 +141,27 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = uizaServices.Entity.Update(new UpdateEntityParameter()
+try
 {
-	Id = "Entity Id",
-	Name = "Sample update",
-	Description = "Description update",
-	ShortDescription = "ShortDescription update",
-	Poster = "/example.com/updatePoster",
-	Thumbnail = "/example.com/updateThumbnail"
-});
-Console.WriteLine(string.Format("Update Entity Id = {0} Success", result.Data.id));
+  var result = uizaServices.Entity.Update(new UpdateEntityParameter()
+  {
+  	Id = "your-entity-id",
+  	Name = "Sample update",
+  	Description = "Description update",
+  	ShortDescription = "ShortDescription update",
+  	Poster = "/example.com/updatePoster",
+  	Thumbnail = "/example.com/updateThumbnail"
+  });
+  Console.WriteLine(string.Format("Update Entity Id = {0} Success", result.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Update entity's information.

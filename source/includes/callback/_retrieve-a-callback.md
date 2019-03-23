@@ -29,25 +29,45 @@ end
 ```
 
 ```python
-callback_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+import uiza
 
-res, status_code = Callback().retrieve(callback_id)
+from uiza.api_resources.callback import Callback
+from uiza.exceptions import ServerException
 
-print("id: ", res.id)
-print("status_code", status_code)
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Callback().retrieve("your-callback-id")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Callback::retrieve("id callback");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Callback::retrieve("your-callback-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Callback;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject callback = Callback.retrieve("<callback-id>");
@@ -64,7 +84,7 @@ try {
 ```javascript
 const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
 
-uiza.callback.retrieve('1b1f97f9-9afd-46d1-a2e1-f3b3896374df').then((res) => {
+uiza.callback.retrieve('your-callback-id').then((res) => {
   //Identifier of callback has been retrieved
 }).catch((err) => {
   //Error
@@ -76,7 +96,13 @@ import (
   uiza "github.com/uizaio/api-wrapper-go"
   "github.com/uizaio/api-wrapper-go/callback"
 )
-params := &uiza.CallbackIDParams{ID: uiza.String("Your ID")}
+
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.CallbackIDParams{ID: uiza.String("your-callback-id")}
 response, _ := callback.Retrieve(params)
 log.Printf("%v\n", response)
 ```
@@ -86,12 +112,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var retrieveResult = UizaServices.Callback.Retrieve((string)createResult.Data.id);
-Console.WriteLine(string.Format("Get Callback Id = {0} Success", retrieveResult.Data.id));
+try
+{
+  var retrieveResult = UizaServices.Callback.Retrieve((string)createResult.Data.id);
+  Console.WriteLine(string.Format("Get Callback Id = {0} Success", retrieveResult.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Retrieves the details of an existing callback.

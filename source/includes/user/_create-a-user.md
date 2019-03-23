@@ -54,7 +54,13 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.user import User
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
 
 user_data = {
   "status": 1,
@@ -68,14 +74,24 @@ user_data = {
   "isAdmin": 1
 }
 
-res, status_code = User().create(**user_data)
+try:
+  res, status_code = User().create(**user_data)
 
-print("id: ", res.id)
-print("status_code", status_code)
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "status"  => 1,
   "username" => "test",
@@ -88,15 +104,19 @@ $params = [
   "isAdmin" => 1
 ];
 
-Uiza\User::create($params);
+try {
+  Uiza\User::create($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.User;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("status", Status.ACTIVE.getVal());
@@ -147,6 +167,11 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.UserCreateParams{
   Status: uiza.Int64(1),
   Username: uiza.String("user_test_go"),
@@ -167,20 +192,27 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.User.Create(new CreatUserParameter()
+try
 {
-  Status = UserStatus.Active,
-  UserName = Guid.NewGuid().ToString(),
-  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-  PassWord = curentPW,
-  FullName = Guid.NewGuid().ToString(),
-  Avatar = "https://static.uiza.io/uiza_logo_128.png"
-});
-Console.WriteLine(string.Format("Create New User Id = {0} Success", result.Data.id));
+  var result = UizaServices.User.Create(new CreatUserParameter()
+  {
+    Status = UserStatus.Active,
+    UserName = Guid.NewGuid().ToString(),
+    Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
+    PassWord = curentPW,
+    FullName = Guid.NewGuid().ToString(),
+    Avatar = "https://static.uiza.io/uiza_logo_128.png"
+  });
+  Console.WriteLine(string.Format("Create New User Id = {0} Success", result.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

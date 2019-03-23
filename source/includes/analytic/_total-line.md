@@ -33,34 +33,54 @@ end
 ```
 
 ```python
+import uiza
+
 from uiza.api_resources.analytic import Analytic
+from uiza.exceptions import ServerException
 
-res, status_code = Analytic().get_total_line(
-  start_date="2018-11-01 20:00",
-  end_date="2019-11-02 20:00",
-  metric="rebuffer_count"
-)
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
 
-print("status_code", status_code)
+try:
+  res, status_code = Analytic().get_total_line(
+    start_date="2018-11-01 20:00",
+    end_date="2019-11-02 20:00",
+    metric="rebuffer_count"
+  )
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "start_date" => "YYYY-MM-DD hh:mm",
   "end_date" => "YYYY-MM-DD hh:mm",
   "metric" => "rebuffer_count"
 ];
 
-Uiza\Analytic::getTotalLine($params);
+try {
+  Uiza\Analytic::getTotalLine($params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Analytic;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("start_date", "2019-01-01 07:00");
@@ -100,6 +120,11 @@ import (
   "github.com/uizaio/api-wrapper-go/analytic"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 metric := uiza.AnalyticMetricRebufferCount
 params := &uiza.AnalyticTotalLineParams{
   StartDate: uiza.String("2018-11-01 08:00"),
@@ -119,17 +144,24 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var getTotalLine = UizaServices.Analytic.GetTotalLine(new AnalyticTotalLineParameter()
+try
 {
-  StartDate = @"2019-02-28 20:00",
-  EndDate = @"2019-03-01 20:00",
-  Metric = MetricType.RebufferCount
-});
-Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getTotalLine.Data.Count));
+  var getTotalLine = UizaServices.Analytic.GetTotalLine(new AnalyticTotalLineParameter()
+  {
+    StartDate = @"2019-02-28 20:00",
+    EndDate = @"2019-03-01 20:00",
+    Metric = MetricType.RebufferCount
+  });
+  Console.WriteLine(string.Format("Get Total Line Success, total record {0}", getTotalLine.Data.Count));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

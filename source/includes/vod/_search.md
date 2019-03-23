@@ -30,23 +30,44 @@ end
 ```
 
 ```python
-res, status_code = Entity().search(keyword="Title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().search(keyword="Title")
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$entity = Uiza\Entity::search(["keyword" => "sample"]);
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  $entity = Uiza\Entity::search(["keyword" => "sample"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonArray entities = Entity.search("keyword");
@@ -62,6 +83,8 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.entity.search({'keyword': 'sample'}).then((res) => {
   // Response search entity base on keyword entered
 }).catch((err) => {
@@ -75,6 +98,11 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.EntitySearchParams{Keyword: uiza.String("Sample")}
 listEntity, _ := entity.Search(params)
 for _, v := range listEntity {
@@ -87,12 +115,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Entity.Search("Sample");
-Console.WriteLine(string.Format("Search Success, , total record {0}", result.Data.Count));
+try
+{
+  var result = UizaServices.Entity.Search("Sample");
+  Console.WriteLine(string.Format("Search Success, , total record {0}", result.Data.Count));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Search entity base on keyword entered

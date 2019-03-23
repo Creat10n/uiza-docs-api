@@ -18,7 +18,7 @@ Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
 Uiza.authorization = "your-authorization"
 
 begin
-  live = Uiza::Live.delete "your-record-id" #Identifier of record (get from list record)
+  live = Uiza::Live.delete "your-record-id" # Identifier of record (get from list record)
   puts live.id
 rescue Uiza::Error::UizaError => e
   puts "description_link: #{e.description_link}"
@@ -30,25 +30,47 @@ end
 ```
 
 ```python
-res, status_code = Live().delete_recorded("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Live().delete("your-record-id") # Identifier of record (get from list record)
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Live::delete("id record ...");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Live::delete("your-record-id"); // Identifier of record (get from list record)
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Live;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
-  JsonObject live = Live.delete("<record-id>");
+  JsonObject live = Live.delete("<record-id>"); // Identifier of record (get from list record)
   System.out.println(live.get("id"));
 } catch (UizaException e) {
   System.out.println("Status is: " + e.getStatusCode());
@@ -62,7 +84,7 @@ try {
 ```javascript
 const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
 
-uiza.live.delete('id....')
+uiza.live.delete('your-record-id') // Identifier of record (get from list record)
   .then((res) => {
     // Identifier of deleting a record
   }).catch((err) => {
@@ -76,7 +98,12 @@ import (
   "github.com/uizaio/api-wrapper-go/live"
 )
 
-param := &uiza.LiveIDParams{ID: uiza.String("Your Recorded ID")}
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+param := &uiza.LiveIDParams{ID: uiza.String("your-record-id")} // Identifier of record (get from list record)
 response, _ := live.Delete(param)
 log.Printf("%v\n", response)
 ```
@@ -86,11 +113,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
-var deleteRecordFileResult = UizaServices.LiveStreaming.Delete((string)createResult.Data.id);
-Console.WriteLine(string.Format("Delete Live Feed Success", deleteRecordFileResult.Data.id));
+
+try
+{
+  var deleteRecordFileResult = UizaServices.LiveStreaming.Delete((string)createResult.Data.id);
+  Console.WriteLine(string.Format("Delete Live Feed Success", deleteRecordFileResult.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Delete a recorded file

@@ -30,26 +30,44 @@ end
 ```
 
 ```python
-res, status_code = Category().list()
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.category import Category
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Category().list()
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$listCategory = Uiza\Category::all();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-$listCategory = Uiza\Category::list();
+try {
+  $listCategory = Uiza\Category::list();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonArray categories = Category.list();
@@ -65,6 +83,8 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.category.list()
   .then((res) => {
     //Identifier of category list
@@ -79,10 +99,16 @@ import (
   "github.com/uizaio/api-wrapper-go/category"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.CategoryListParams{
   Page:uiza.Int64(2),
   Limit:uiza.Int64(10),
 }
+
 listData, _ := category.List(params)
 for _, v := range listData {
   log.Printf("%v\n", v)
@@ -94,12 +120,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var listResult = UizaServices.Category.List(new BaseParameter());
-Console.WriteLine(string.Format("Success Get List Category, total record {0}", listResult.MetaData.result));
+try
+{
+  var listResult = UizaServices.Category.List(new BaseParameter());
+  Console.WriteLine(string.Format("Success Get List Category, total record {0}", listResult.MetaData.result));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Get all category

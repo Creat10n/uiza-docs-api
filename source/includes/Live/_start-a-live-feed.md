@@ -32,23 +32,45 @@ end
 ```
 
 ```python
-res, status_code = Live().start_feed("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Live().start_feed("your-live-id")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Live::startFeed(["id" => "your entityId..."])
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Live::startFeed(["id" => "your-live-id"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Live;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject live = Live.startFeed("<live-event-id>");
@@ -65,7 +87,7 @@ try {
 ```javascript
 const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
 
-uiza.live.start_feed('8bb4bb3e-0042-4be6-a5f0-25dc65145b14')
+uiza.live.start_feed('your-live-id')
   .then((res) => {
     // Identifier of event
   }).catch((err) => {
@@ -79,7 +101,12 @@ import (
   "github.com/uizaio/api-wrapper-go/live"
 )
 
-params := &uiza.LiveIDParams{ID: uiza.String("c6b23cc3-e47d-4e87-8f40-5da64221ad4e")}
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.LiveIDParams{ID: uiza.String("your-live-id")}
 response, _ := live.StartFeed(params)
 log.Printf("%v\n", response)
 ```
@@ -89,12 +116,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var startFeedResult = UizaServices.Live.StartFeed((string)createResult.Data.id);
-Console.WriteLine(string.Format("Start Live Feed Success", startFeedResult.Data.id));
+try
+{
+  var startFeedResult = UizaServices.Live.StartFeed((string)createResult.Data.id);
+  Console.WriteLine(string.Format("Start Live Feed Success", startFeedResult.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 These API use to start a live event that has been create success. The Live channel minute start count whenever the event start success

@@ -37,27 +37,44 @@ end
 ```
 
 ```python
-res, status_code = Entity().list(name="Title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().list(name="Title")
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$listEntity = Uiza\Entity::all();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-$listEntity = Uiza\Entity::list();
+try {
+  $listEntity = Uiza\Entity::list();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("publishToCdn", PublishStatus.NOT_READY.toString());
@@ -77,6 +94,8 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.entity.list().then((res) => {
   //Get list of entities including all detail.
 }).catch((err) => {
@@ -90,6 +109,11 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.EntityListParams{}
 listEntity, _ := entity.List(params)
 for _, v := range listEntity {
@@ -102,15 +126,22 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
+try
 {
-  publishToCdn = EntityPublishStatus.Success
-});
-Console.WriteLine(string.Format("Success Get EntitiesList, total record {0}", result.MetaData.result));
+  var result =  UizaServices.Entity.List(new RetrieveListEntitiesParameter()
+  {
+    publishToCdn = EntityPublishStatus.Success
+  });
+  Console.WriteLine(string.Format("Success Get EntitiesList, total record {0}", result.MetaData.result));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Get list of entities including all detail.

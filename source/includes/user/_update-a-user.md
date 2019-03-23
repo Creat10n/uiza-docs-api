@@ -30,7 +30,7 @@ Uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
 Uiza.authorization = "your-authorization"
 
 params = {
-  id: "37d6706e-be91-463e-b3b3-b69451dd4752",
+  id: "your-user-id",
   status: 1,
   username: "user_test",
   email: "user_test@uiza.io",
@@ -56,14 +56,32 @@ end
 ```
 
 ```python
-res, status_code = User().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", status=1)
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.user import User
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = User().update(id="your-user-id", status=1)
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain('your-workspace-api-domain.uiza.co');
+Uiza\Base::setApiKey('your-api-key');
+
 $params = [
   "status"  => 1,
   "username" => "test",
@@ -76,15 +94,19 @@ $params = [
   "isAdmin" => 1
 ];
 
-Uiza\User::update("id user", $params);
+try {
+  Uiza\User::update("your-user-id", $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.User;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("status", Status.ACTIVE.getVal());
@@ -113,7 +135,7 @@ try {
 const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
 
 uiza.user.update({
-  'id': '9e4df7c2-111d-4107-9c2e-6d2cb13c06f0',
+  'id': 'your-user-id',
   'status': 0,
   'username': 'user_test_110',
   'email': 'user_test@uiza.io',
@@ -136,8 +158,13 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.UserUpdateParams{
-  ID: uiza.String("d0b81f08-0a93-4b0e-a6b4-15027349b7d6"),
+  ID: uiza.String("your-user-id"),
   Status: uiza.Int64(0),
   Username: uiza.String("user_test_go"),
   Email: uiza.String("user_test_go@uiza.io"),
@@ -157,30 +184,37 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.User.Create(new CreatUserParameter()
+try
 {
-  Status = UserStatus.Active,
-  UserName = Guid.NewGuid().ToString(),
-  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-  PassWord = Guid.NewGuid().ToString();,
-  FullName = Guid.NewGuid().ToString(),
-  Avatar = "https://static.uiza.io/uiza_logo_128.png"
-});
+  var result = UizaServices.User.Create(new CreatUserParameter()
+  {
+    Status = UserStatus.Active,
+    UserName = Guid.NewGuid().ToString(),
+    Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
+    PassWord = Guid.NewGuid().ToString();,
+    FullName = Guid.NewGuid().ToString(),
+    Avatar = "https://static.uiza.io/uiza_logo_128.png"
+  });
 
-var updateResult = UizaServices.User.Update(new UpdateUserParameter()
+  var updateResult = UizaServices.User.Update(new UpdateUserParameter()
+  {
+    Id = (string)result.Data.id,
+    Status = UserStatus.Active,
+    UserName = Guid.NewGuid().ToString(),
+    Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
+    PassWord = Guid.NewGuid().ToString()
+  });
+
+  Console.WriteLine(string.Format("Update User Id = {0} Success", updateResult.Data.id));
+}
+catch (UizaException ex)
 {
-  Id = (string)result.Data.id,
-  Status = UserStatus.Active,
-  UserName = Guid.NewGuid().ToString(),
-  Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-  PassWord = Guid.NewGuid().ToString()
-});
-
-Console.WriteLine(string.Format("Update User Id = {0} Success", updateResult.Data.id));
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

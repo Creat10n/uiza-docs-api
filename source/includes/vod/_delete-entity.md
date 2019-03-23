@@ -32,28 +32,45 @@ end
 ```
 
 ```python
-res, status_code = Entity().delete("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.entity import Entity
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Entity().delete("your-entity-id")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-$entity = Uiza\Entity::retrieve("key ... ");
-$entity->destroy();
+require __DIR__."/../vendor/autoload.php";
 
-// or
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
 
-Uiza\Entity::delete("key ...");
+try {
+  Uiza\Entity::delete("your-entity-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Entity;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject entity = Entity.delete("<entity-id>");
@@ -68,7 +85,9 @@ try {
 ```
 
 ```javascript
-uiza.entity.delete({'id': '5f1c78bd-69......'}).then((res) => {
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.entity.delete({'id': 'your-entity-id'}).then((res) => {
   // Identifier of entity has been deleted
 }).catch((err) => {
   //Error
@@ -81,7 +100,12 @@ import (
   "github.com/uizaio/api-wrapper-go/entity"
 )
 
-params := &uiza.EntityDeleteParams{ID: uiza.String("Your entity ID")}
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.EntityDeleteParams{ID: uiza.String("your-entity-id")}
 response, _ := entity.Delete(params)
 log.Printf("%v\n", response)
 ```
@@ -91,12 +115,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-	ApiKey = "your-ApiKey",
-	ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Entity.Delete("Entity Id");
-Console.WriteLine(string.Format("Create New Entity Id = {0} Success", result.Data.id));
+try
+{
+  var result = UizaServices.Entity.Delete("your-entity-id");
+  Console.WriteLine(string.Format("Delete Entity Id = {0} Success", result.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Delete entity

@@ -30,24 +30,45 @@ end
 ```
 
 ```python
-category_id = "33a86c18-f502-41a4-9c4c-d4e14efca238"
+import uiza
 
-res, status_code = Category().retrieve(category_id)
+from uiza.api_resources.category import Category
+from uiza.exceptions import ServerException
 
-print("status_code", status_code)
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Category().retrieve("your-category-id")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Category::retrieve("key ... ");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Category::retrieve("your-category-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Category;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject category = Category.retrieve("<category-id>");
@@ -62,7 +83,9 @@ try {
 ```
 
 ```javascript
-uiza.category.retrieve('b8f2a6ec-d45f-4cc0-a32d-35ad0ad9f1b6')
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.category.retrieve('your-category-id')
   .then((res) => {
     //Identifier of category
   }).catch((err) => {
@@ -76,7 +99,12 @@ import (
   "github.com/uizaio/api-wrapper-go/category"
 )
 
-params := &uiza.CategoryIDParams{ID :uiza.String("Your category ID")}
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.CategoryIDParams{ID :uiza.String("your-category-id")}
 response, _ := category.Retrieve(params)
 log.Printf("%v\n", response)
 ```
@@ -86,12 +114,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Category.Retrieve("Category Id");
-Console.WriteLine(string.Format("Get Category Id = {0} Success", result.Data.id));
+try
+{
+  var result = UizaServices.Category.Retrieve("your-category-id");
+  Console.WriteLine(string.Format("Get Category Id = {0} Success", result.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Get detail of category

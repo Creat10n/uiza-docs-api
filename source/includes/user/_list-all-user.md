@@ -34,22 +34,44 @@ end
 ```
 
 ```python
-res, status_code = User().list()
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.user import User
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = User().list()
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?
-Uiza\User::list();
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\User::list();
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);          	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.User;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonArray users = User.list();
@@ -80,6 +102,11 @@ import (
   "github.com/uizaio/api-wrapper-go/user"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params := &uiza.UserListParams{}
 response, _ := user.List(params)
 log.Printf("%s\n", response)
@@ -90,12 +117,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var listResult = UizaServices.User.List();
-Console.WriteLine(string.Format("List User Success, total record {0}", listResult.Data.Count));
+try
+{
+  var listResult = UizaServices.User.List();
+  Console.WriteLine(string.Format("List User Success, total record {0}", listResult.Data.Count));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

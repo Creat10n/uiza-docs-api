@@ -50,14 +50,32 @@ end
 ```
 
 ```python
-res, status_code = Storage().update(id="33a86c18-f502-41a4-9c4c-d4e14efca238", name="Update title")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.storage import Storage
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Storage().update(id="your-storage-id", name="Update title")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
 $params = [
   "name" => "FTP Uiza",
   "description" => "FTP of Uiza, use for transcode",
@@ -68,15 +86,19 @@ $params = [
   "port" => 21
 ];
 
-Uiza\Storage::update("key ..", $params);
+try {
+  Uiza\Storage::update("your-storage-id", $params);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Storage;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 Map<String, Object> params = new HashMap<>();
 params.put("name", "FTP Uiza");
@@ -97,8 +119,10 @@ try {
 ```
 
 ```javascript
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
 uiza.storage.update({
-  'id': '03e6a059-c6d2-440c-a653-1e309918c792',
+  'id': 'your-storage-id',
   'name': 'FTP Uiza',
   'description': 'FTP of Uiza, use for transcode',
   'storageType': 'ftp',
@@ -119,8 +143,13 @@ import (
   "github.com/uizaio/api-wrapper-go/storage"
 )
 
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
 params :=  &uiza.StorageUpdateParams{
-  ID: uiza.String("f3a94046-b1de-40db-95b6-84cf85b9352f"),
+  ID: uiza.String("your-storage-id"),
   Name: uiza.String("FTP Uiza Edit"),
   Host: uiza.String("ftp-example.uiza.io"),
   Port: uiza.Int64(21),
@@ -139,22 +168,29 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result =uizaServices.Storage.Update(new UpdateStorageParameter()
+try
 {
-  Id = (string)createResult.Data.id,
-  Name = "FTP Uiza Update",
-  Host = "ftp-example.uiza.io",
-  Description = "FTP of Uiza, use for transcode Update",
-  StorageType = StorageInputTypes.S3,
-  AwsAccessKey = "ASIAV*******GPHO2DTZ",
-  AwsSecretKey = "dp****cx2mE2lZxsSq7kV++vWSL6RNatAhbqc",
-  Port = 22
-});
-Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.id));
+  var result =uizaServices.Storage.Update(new UpdateStorageParameter()
+  {
+    Id = (string)createResult.Data.id,
+    Name = "FTP Uiza Update",
+    Host = "ftp-example.uiza.io",
+    Description = "FTP of Uiza, use for transcode Update",
+    StorageType = StorageInputTypes.S3,
+    AwsAccessKey = "ASIAV*******GPHO2DTZ",
+    AwsSecretKey = "dp****cx2mE2lZxsSq7kV++vWSL6RNatAhbqc",
+    Port = 22
+  });
+  Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 > Example Response

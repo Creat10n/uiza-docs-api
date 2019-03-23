@@ -32,23 +32,45 @@ end
 ```
 
 ```python
-res, status_code = Storage().remove("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("id: ", res.id)
-print("status_code", status_code)
+from uiza.api_resources.storage import Storage
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Storage().remove("your-storage-id")
+
+  print("id: ", res.id)
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Storage::remove("key ...");
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Storage::remove("your-storage-id");
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Storage;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject storage = Storage.remove("<storage-id>");
@@ -63,7 +85,9 @@ try {
 ```
 
 ```javascript
-uiza.storage.remove("03e6a059-c6d2-440c-a653-1e309918c792").then((res) => {
+const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+
+uiza.storage.remove('your-storage-id').then((res) => {
   //Identifier of storage has been removed
 }).catch((err) => {
   //Error
@@ -76,7 +100,12 @@ import (
   "github.com/uizaio/api-wrapper-go/storage"
 )
 
-params := &uiza.StorageRemoveParams{ID: uiza.String("Your entity ID")}
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.StorageRemoveParams{ID: uiza.String("your-storage-id")}
 response, _ := storage.Remove(params)
 log.Printf("%v\n", response)
 ```
@@ -86,12 +115,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var result = UizaServices.Storage.Remove((string)createResult.Data.id);
-Console.WriteLine(string.Format("Remove Storage Id = {0} Success", result.Data.id));
+try
+{
+  var result = UizaServices.Storage.Remove((string)createResult.Data.id);
+  Console.WriteLine(string.Format("Remove Storage Id = {0} Success", result.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 Remove storage that added to Uiza

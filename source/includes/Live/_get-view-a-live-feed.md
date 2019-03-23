@@ -30,22 +30,44 @@ end
 ```
 
 ```python
-res, status_code = Live().get_view("ddf09dd0-b7a8-4f29-92df-14dafb97b2aa")
+import uiza
 
-print("status_code", status_code)
+from uiza.api_resources.live import Live
+from uiza.exceptions import ServerException
+
+uiza.workspace_api_domain = "your-workspace-api-domain.uiza.co"
+uiza.authorization = "your-authorization"
+
+try:
+  res, status_code = Live().get_view("your-live-id")
+
+  print("status_code", status_code)
+except ServerException as e:
+  raise e
+except Exception as e:
+  raise e
 ```
 
 ```php
 <?php
-Uiza\Live::getView(["id" => "your entityId..."])
+require __DIR__."/../vendor/autoload.php";
+
+Uiza\Base::setWorkspaceApiDomain("your-workspace-api-domain.uiza.co");
+Uiza\Base::setAuthorization("your-authorization");
+
+try {
+  Uiza\Live::getView(["id" => "your-live-id"]);
+} catch(\Uiza\Exception\ErrorResponse $e) {
+  print($e->getStatusCode);            	
+}
 ?>
 ```
 
 ```java
 import io.uiza.model.Live;
 
-Uiza.apiDomain = "<YOUR_WORKSPACE_API_DOMAIN>";
-Uiza.apiKey = "<YOUR_API_KEY>";
+Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+Uiza.authorization = "your-authorization";
 
 try {
   JsonObject live = Live.getView("<live-event-id>");
@@ -76,7 +98,12 @@ import (
   "github.com/uizaio/api-wrapper-go/live"
 )
 
-params := &uiza.LiveIDParams{ID: uiza.String("Your live ID")}
+func init() {
+  Uiza.WorkspaceAPIDomain = "your-workspace-api-domain.uiza.co"
+  Uiza.Authorization = "your-authorization"
+}
+
+params := &uiza.LiveIDParams{ID: uiza.String("your-live-id")}
 response, _ := live.GetView(params)
 log.Printf("%s\n", response)
 ```
@@ -86,12 +113,19 @@ using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
 {
-  ApiKey = "your-ApiKey",
-  ApiBase = "your-workspace-api-domain.uiza.co"
+  WorkspaceApiDomain = "your-workspace-api-domain.uiza.co",
+  Authorization = "your-authorization"
 });
 
-var getViewResult = UizaServices.Live.GetView((string)createResult.Data.id);
-Console.WriteLine(string.Format("Get View Live Feed Success", getViewResult.Data.id));
+try
+{
+  var getViewResult = UizaServices.Live.GetView((string)createResult.Data.id);
+  Console.WriteLine(string.Format("Get View Live Feed Success", getViewResult.Data.id));
+}
+catch (UizaException ex)
+{
+	var result = ex.UizaInnerException.Error;
+}
 ```
 
 This API use to get a live view status . This view only show when event has been started and being processing.
