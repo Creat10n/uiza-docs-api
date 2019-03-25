@@ -58,7 +58,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\User::logOut();
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);           	
+  print($e);           	
 }
 ?>
 ```

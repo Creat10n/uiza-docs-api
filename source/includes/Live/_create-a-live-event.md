@@ -109,7 +109,7 @@ $params = [
 try {
   Uiza\Live::create($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

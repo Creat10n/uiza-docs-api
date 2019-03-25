@@ -77,7 +77,7 @@ $params = [
 try {
   Uiza\Category::update("your-category-id", $params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

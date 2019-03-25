@@ -61,7 +61,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Entity::retrieve("your-entity-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
  ?>
 ```

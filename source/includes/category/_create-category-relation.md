@@ -75,7 +75,7 @@ $params = [
 try {
   Uiza\Category::createRelation($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

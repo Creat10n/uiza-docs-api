@@ -61,7 +61,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\User::delete("your-user-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

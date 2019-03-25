@@ -58,7 +58,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Entity::getStatusPublish("your-entity-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

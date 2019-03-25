@@ -79,7 +79,7 @@ $params = [
 try {
   Uiza\User::changePassword($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

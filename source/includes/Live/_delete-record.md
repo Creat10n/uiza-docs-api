@@ -58,7 +58,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Live::delete("your-record-id"); // Identifier of record (get from list record)
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

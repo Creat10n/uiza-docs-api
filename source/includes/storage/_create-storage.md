@@ -94,7 +94,7 @@ $params = [
 try {
   Uiza\Storage::add($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

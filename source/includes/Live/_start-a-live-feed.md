@@ -60,7 +60,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Live::startFeed(["id" => "your-live-id"]);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

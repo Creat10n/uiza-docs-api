@@ -72,7 +72,7 @@ $params = [
 try {
   Uiza\Analytic::getLine($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

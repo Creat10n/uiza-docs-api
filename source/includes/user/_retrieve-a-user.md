@@ -59,7 +59,7 @@ Uiza\Base::setApiKey('your-api-key');
 try {
   Uiza\User::retrieve("your-user-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

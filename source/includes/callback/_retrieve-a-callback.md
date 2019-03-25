@@ -57,7 +57,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Callback::retrieve("your-callback-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

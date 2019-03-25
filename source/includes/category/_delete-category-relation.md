@@ -75,7 +75,7 @@ $params = [
 try {
   Uiza\Category::deleteRelation($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

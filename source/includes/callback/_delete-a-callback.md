@@ -59,7 +59,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Callback::delete("your-callback-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

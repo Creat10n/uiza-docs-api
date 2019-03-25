@@ -96,7 +96,7 @@ $params = [
 try {
   Uiza\User::update("your-user-id", $params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

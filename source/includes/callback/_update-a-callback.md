@@ -73,7 +73,7 @@ $params = [
 try {
   Uiza\Callback::update("your-callback-id", $params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

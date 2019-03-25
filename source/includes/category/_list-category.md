@@ -58,7 +58,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   $listCategory = Uiza\Category::list();
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

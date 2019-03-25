@@ -62,7 +62,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\User::list();
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);          	
+  print($e);          	
 }
 ?>
 ```

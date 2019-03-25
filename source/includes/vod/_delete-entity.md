@@ -60,7 +60,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Entity::delete("your-entity-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

@@ -76,7 +76,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Entity::update("your-enity-id", ["name" => "Name change"]);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

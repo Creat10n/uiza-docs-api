@@ -60,7 +60,7 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Category::delete("your-category-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

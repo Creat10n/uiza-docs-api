@@ -106,7 +106,7 @@ $params = [
 try {
   Uiza\User::create($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);
+  print($e);
 }
 ?>
 ```

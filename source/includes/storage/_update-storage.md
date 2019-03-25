@@ -88,7 +88,7 @@ $params = [
 try {
   Uiza\Storage::update("your-storage-id", $params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```

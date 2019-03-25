@@ -101,7 +101,7 @@ $params = [
 try {
   $entity = Uiza\Entity::create($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
  ?>
 ```

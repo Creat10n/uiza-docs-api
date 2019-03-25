@@ -82,7 +82,7 @@ $params = [
 try {
   Uiza\Category::create($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e->getStatusCode);            	
+  print($e);            	
 }
 ?>
 ```
