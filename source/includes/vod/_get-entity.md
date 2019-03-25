@@ -85,6 +85,10 @@ try {
 ```
 
 ```javascript
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
+
 uiza.entity.retrieve({
   'id': 'your-entity-id'
 }).then((res) => {

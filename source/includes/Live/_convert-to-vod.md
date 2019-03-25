@@ -83,7 +83,9 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
 uiza.live.convert_to_vod('your-record-id') // Identifier of record (get from list record)
   .then((res) => {

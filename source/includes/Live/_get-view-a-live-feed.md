@@ -82,9 +82,11 @@ try {
 ```
 
 ```javascript
-const uiza = require('../lib/uiza')('your-workspace-api-domain.uiza.co', 'your-authorization');
+const uiza = require('uiza');
+uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
+uiza.authorization('your-authorization-key');
 
-uiza.live.get_view('8bb4bb3e-0042-4be6-a5f0-25dc65145b14')
+uiza.live.get_view('your-live-id')
   .then((res) => {
     // Identifier of record (get from list record)
   }).catch((err) => {
