@@ -60,26 +60,37 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Live::retrieve("your-live-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e);            	
+  print($e);
 }
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Live;
+import io.uiza.model.Live.*;
 
-Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-Uiza.authorization = "your-authorization";
+public class Main {
 
-try {
-  JsonObject live = Live.retrieve("<live-event-id>");
-  System.out.println(live.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = Live.retrieve("<live-event-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

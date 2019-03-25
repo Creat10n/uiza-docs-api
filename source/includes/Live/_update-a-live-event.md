@@ -83,34 +83,45 @@ $params = [
 try {
   Uiza\Live::update("your-live-id", $params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e);            	
+  print($e);
 }
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Live;
+import io.uiza.model.Live.*;
 
-Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-Uiza.authorization = "your-authorization";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "<your-live-event-name>");
-params.put("mode", Mode.PULL.toString());
-params.put("encode", Encode.ENCODE.getVal());
-params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
-params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
-params.put("resourceMode", ResourceMode.SINGLE.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject live = Live.update("<live-event-id>", params);
-  System.out.println(live.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "<your-live-event-name>");
+    params.put("mode", Mode.PULL.toString());
+    params.put("encode", Encode.ENCODE.getVal());
+    params.put("dvr", Dvr.ACTIVE_RECORD.getVal());
+    params.put("linkStream", new String[] {"stream-url1.com", "stream-url2.com"});
+    params.put("resourceMode", ResourceMode.SINGLE.toString());
 
+    try {
+      JsonObject response = Live.update("<live-event-id>", params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
