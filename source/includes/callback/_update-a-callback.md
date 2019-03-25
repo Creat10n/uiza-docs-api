@@ -51,8 +51,7 @@ uiza.authorization = "your-authorization"
 try:
   res, status_code = Callback().update(id="your-callback-id", method="POST")
 
-  print("id: ", res.id)
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

@@ -56,8 +56,7 @@ try:
     new_password="FMpsr<4[dGPu?B#u"
   )
 
-  print("id", res.id)
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

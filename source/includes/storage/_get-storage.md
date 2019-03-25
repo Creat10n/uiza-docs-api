@@ -41,8 +41,7 @@ uiza.authorization = "your-authorization"
 try:
   res, status_code = Storage().retrieve("your-storage-id")
 
-  print("id: ", res.id)
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

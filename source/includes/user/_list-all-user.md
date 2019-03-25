@@ -45,7 +45,7 @@ uiza.authorization = "your-authorization"
 try:
   res, status_code = User().list()
 
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

@@ -61,8 +61,7 @@ uiza.authorization = "your-authorization"
 try:
   res, status_code = Storage().update(id="your-storage-id", name="Update title")
 
-  print("id: ", res.id)
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

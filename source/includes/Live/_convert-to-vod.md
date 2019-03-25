@@ -42,7 +42,7 @@ uiza.authorization = "your-authorization"
 try:
   res, status_code = Live().convert_into_vod("your-record-id") # Identifier of record (get from list record)
 
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

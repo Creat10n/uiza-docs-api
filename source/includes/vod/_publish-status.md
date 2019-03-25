@@ -41,7 +41,7 @@ uiza.authorization = "your-authorization"
 try:
   res, status_code = Entity().get_status_publish("your-entity-id")
 
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

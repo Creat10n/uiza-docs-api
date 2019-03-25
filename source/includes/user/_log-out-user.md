@@ -41,7 +41,7 @@ uiza.api_key = "your-authorization"
 try:
   res, status_code = User().logout()
 
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

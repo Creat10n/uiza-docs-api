@@ -53,7 +53,7 @@ try:
     metadata_ids=["your-category-id-1","your-category-id-2"]
   )
 
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:

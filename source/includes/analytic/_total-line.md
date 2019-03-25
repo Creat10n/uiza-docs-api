@@ -48,7 +48,7 @@ try:
     metric="rebuffer_count"
   )
 
-  print("status_code", status_code)
+  print("res ", res)
 except ServerException as e:
   raise e
 except Exception as e:
