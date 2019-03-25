@@ -72,32 +72,42 @@ $params = [
 try {
   Uiza\Analytic::getLine($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e);            	
+  print($e);
 }
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Analytic;
+import io.uiza.model.Analytic.*;
 
-Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-Uiza.authorization = "your-authorization";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("start_date", "2019-01-01");
-params.put("end_date", "2019-03-01");
-params.put("type", Metric.REBUFFER_COUNT.toString());
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonArray analytics = Analytic.getLine(params);
-  JsonObject analytic = analytics.get(0).getAsJsonObject();
-  System.out.println(analytic);
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("start_date", "2019-01-01");
+    params.put("end_date", "2019-03-01");
+    params.put("type", Metric.REBUFFER_COUNT.toString());
 
+    try {
+      JsonArray response = Analytic.getLine(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
