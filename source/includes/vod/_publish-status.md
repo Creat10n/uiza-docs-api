@@ -58,26 +58,37 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   Uiza\Entity::getStatusPublish("your-entity-id");
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e);            	
+  print($e);
 }
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-Uiza.authorization = "your-authorization";
+public class Main {
 
-try {
-  JsonObject response = Entity.getStatusPublish("<entity-id>");
-  System.out.println(response.get("status"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
+    try {
+      JsonObject response = Entity.getStatusPublish("<entity-id>");
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

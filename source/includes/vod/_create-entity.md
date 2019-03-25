@@ -101,35 +101,47 @@ $params = [
 try {
   $entity = Uiza\Entity::create($params);
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e);            	
+  print($e);
 }
  ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-Uiza.authorization = "your-authorization";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("name", "Sample Video");
-params.put("url", "https://example.com/video.mp4");
-params.put("inputType", InputType.HTTP.toString());
-params.put("description", "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
-params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
-params.put("poster", "https://example.com/picture001.jpeg");
-params.put("thumbnail", "https://example.com/picture002.jpeg");
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonObject entity = Entity.create(params);
-  System.out.println(entity.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "Sample Video");
+    params.put("url", "https://example.com/video.mp4");
+    params.put("inputType", InputType.HTTP.toString());
+    params.put("description",
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry");
+    params.put("shortDescription", "Lorem Ipsum is simply dummy text.");
+    params.put("poster", "https://example.com/picture001.jpeg");
+    params.put("thumbnail", "https://example.com/picture002.jpeg");
 
+    try {
+      JsonObject response = Entity.create(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 

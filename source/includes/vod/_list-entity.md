@@ -65,31 +65,41 @@ Uiza\Base::setAuthorization("your-authorization");
 try {
   $listEntity = Uiza\Entity::list();
 } catch(\Uiza\Exception\ErrorResponse $e) {
-  print($e);            	
+  print($e);
 }
 ?>
 ```
 
 ```java
+import java.util.*;
+import com.google.gson.*;
+
+import io.uiza.Uiza;
+import io.uiza.exception.*;
 import io.uiza.model.Entity;
+import io.uiza.model.Entity.*;
 
-Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
-Uiza.authorization = "your-authorization";
+public class Main {
 
-Map<String, Object> params = new HashMap<>();
-params.put("publishToCdn", PublishStatus.NOT_READY.toString());
-params.put("metadataId", "<your-folder/playlist-id>");
+  public static void main(String[] args) {
+    Uiza.workspaceApiDomain = "your-workspace-api-domain.uiza.co";
+    Uiza.authorization = "your-authorization";
 
-try {
-  JsonArray entities = Entity.list(params);
-  JsonObject firstEntity = entities.get(0).getAsJsonObject();
-  System.out.println(firstEntity.get("id"));
-} catch (UizaException e) {
-  System.out.println("Status is: " + e.getStatusCode());
-  System.out.println("Message is: " + e.getMessage());
-  System.out.println("Description link is: " + e.getDescriptionLink());
-} catch (Exception e) {
+    Map<String, Object> params = new HashMap<>();
+    params.put("publishToCdn", PublishStatus.NOT_READY.toString());
+    params.put("metadataId", "<your-folder/playlist-id>");
 
+    try {
+      JsonArray response = Entity.list(params);
+      System.out.println(response);
+    } catch (UizaException e) {
+      System.out.println("Status is: " + e.getStatusCode());
+      System.out.println("Message is: " + e.getMessage());
+      System.out.println("Description link is: " + e.getDescriptionLink());
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
 }
 ```
 
