@@ -119,6 +119,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -129,12 +133,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var listResult = UizaServices.User.List();
-  Console.WriteLine(string.Format("List User Success, total record {0}", listResult.Data.Count));
+  var result = UizaServices.User.List();
+
+  Console.WriteLine(string.Format("List User Success, total record {0}", result.Data.Count));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

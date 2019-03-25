@@ -173,6 +173,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -183,7 +187,7 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var createResult = UizaServices.Storage.Add(new AddStorageParameter()
+  var result = UizaServices.Storage.Add(new AddStorageParameter()
   {
     Name = "FTP Uiza",
     Host = "ftp-example.uiza.io",
@@ -193,11 +197,14 @@ try
     Password = "=59x@LPsd+w7qW",
     Port = 21
   });
-  Console.WriteLine(string.Format("Add New Storage Id = {0} Success", createResult.Data.id));
+
+  Console.WriteLine(string.Format("Add New Storage Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

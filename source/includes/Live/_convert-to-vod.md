@@ -116,6 +116,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -126,12 +130,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var convertIntoVODResult = UizaServices.Live.ConvertToVOD((string)createResult.Data.id);
-  Console.WriteLine(string.Format("Convert VOD Success", convertIntoVODResult.Data.id));
+  var result = UizaServices.Live.ConvertToVOD("your-live-id");
+
+  Console.WriteLine(string.Format("Convert VOD Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

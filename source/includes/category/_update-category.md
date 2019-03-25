@@ -153,6 +153,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -163,18 +167,20 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var resultUpdate = UizaServices.Category.Update(new UpdateCategoryParameter()
+  var result = UizaServices.Category.Update(new UpdateCategoryParameter()
   {
-    Id = createResult.Data.id,
+    Id = "your-category-id",
     Name = string.Format("Category name {0}", Guid.NewGuid().ToString()),
     Type = CategoryTypes.PlayList
   });
 
-  Console.WriteLine(string.Format("Update Category Id = {0} Success", resultUpdate.Data.id));
+  Console.WriteLine(string.Format("Update Category Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

@@ -161,6 +161,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -171,9 +175,9 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var resultUpdate = UizaServices.Live.Update(new UpdateLiveStreamingParameter()
+  var result = UizaServices.Live.Update(new UpdateLiveStreamingParameter()
   {
-    Id = createResult.Data.id,
+    Id = "your-live-id",
     Name = Guid.NewGuid().ToString(),
     Mode = "pull",
     Encode = EncodeTypes.Encode,
@@ -181,11 +185,13 @@ try
     ResourceMode = ResourceModes.Single
   });
 
-  Console.WriteLine(string.Format("Update Live Streaming Id = {0} Success", resultUpdate.Data.id));
+  Console.WriteLine(string.Format("Update Live Streaming Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

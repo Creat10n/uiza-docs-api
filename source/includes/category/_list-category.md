@@ -120,6 +120,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -130,12 +134,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var listResult = UizaServices.Category.List(new BaseParameter());
-  Console.WriteLine(string.Format("Success Get List Category, total record {0}", listResult.MetaData.result));
+  var listResult = UizaServices.Category.List();
+
+  Console.WriteLine(string.Format("Get List Category Success, total record {0}", listResult.MetaData.result));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

@@ -142,6 +142,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -158,11 +162,14 @@ try
     EndDate = @"2019-03-01",
     Type = LineType.RebufferCount
   });
+
   Console.WriteLine(string.Format("Get Line Success, total record {0}", getLine.Data.Count));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+	Console.ReadLine();
 }
 ```
 

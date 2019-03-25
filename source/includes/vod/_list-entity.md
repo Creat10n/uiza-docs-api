@@ -126,6 +126,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -140,11 +144,14 @@ try
   {
     publishToCdn = EntityPublishStatus.Success
   });
-  Console.WriteLine(string.Format("Success Get EntitiesList, total record {0}", result.MetaData.result));
+
+  Console.WriteLine(string.Format("Get Entity List Success, total record {0}", result.MetaData.result));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

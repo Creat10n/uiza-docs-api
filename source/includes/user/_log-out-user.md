@@ -115,6 +115,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -125,12 +129,14 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var logOutResult = UizaServices.User.Logout();
+  var result = UizaServices.User.Logout();
   Console.WriteLine("Logout Success");
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

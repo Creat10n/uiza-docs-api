@@ -115,6 +115,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -125,12 +129,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var resultDelete = UizaServices.Callback.Delete((string)createResult.Data.id);
-  Console.WriteLine(string.Format("Delete Callback Id = {0} Success", resultUpdate.Data.id));
+  var result = UizaServices.Callback.Delete("your-callback-id");
+
+  Console.WriteLine(string.Format("Delete Callback Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

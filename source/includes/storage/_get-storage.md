@@ -114,6 +114,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -124,12 +128,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = UizaServices.Storage.Retrieve((string)createResult.Data.id);
+  var result = UizaServices.Storage.Retrieve("your-storage-id");
+
   Console.WriteLine(string.Format("Get Storage Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

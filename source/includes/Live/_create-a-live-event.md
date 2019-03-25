@@ -198,6 +198,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -208,21 +212,25 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var createResult = UizaServices.Live.Create(new CreateLiveStreamingParameter()
+  var result = UizaServices.Live.Create(new CreateLiveStreamingParameter()
   {
-  	Name = Guid.NewGuid().ToString(),
-  	Mode = "push",
-  	Encode = EncodeTypes.Encode,
-  	Drv = DvrTypes.ActiveFeatureRecord,
-  	LinkStream = new List<string>() { "https://playlist.m3u8" },
-  	Poster = "//image1.jpeg",
-  	Thumbnail = "//image1.jpeg",
-  	ResourceMode = ResourceModes.Single
+    Name = Guid.NewGuid().ToString(),
+    Mode = "push",
+    Encode = EncodeTypes.Encode,
+    Drv = DvrTypes.ActiveFeatureRecord,
+    LinkStream = new List<string>() { "https://playlist.m3u8" },
+    Poster = "//image1.jpeg",
+    Thumbnail = "//image1.jpeg",
+    ResourceMode = ResourceModes.Single
   });
+
+  Console.WriteLine(string.Format("Create Live Streaming Success New Id = {0}", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

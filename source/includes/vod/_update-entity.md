@@ -142,6 +142,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -152,20 +156,23 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = uizaServices.Entity.Update(new UpdateEntityParameter()
+  var result =uizaServices.Entity.Update(new UpdateEntityParameter()
   {
-  	Id = "your-entity-id",
-  	Name = "Sample update",
-  	Description = "Description update",
-  	ShortDescription = "ShortDescription update",
-  	Poster = "/example.com/updatePoster",
-  	Thumbnail = "/example.com/updateThumbnail"
+    Id = "your-entity-id",
+    Name = "Sample update",
+    Description = "Description update",
+    ShortDescription = "ShortDescription update",
+    Poster = "/example.com/updatePoster",
+    Thumbnail = "/example.com/updateThumbnail"
   });
+
   Console.WriteLine(string.Format("Update Entity Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

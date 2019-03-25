@@ -115,6 +115,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -125,12 +129,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var getViewResult = UizaServices.Live.GetView((string)createResult.Data.id);
-  Console.WriteLine(string.Format("Get View Live Feed Success", getViewResult.Data.id));
+  var result = UizaServices.Live.GetView("your-live-id");
+
+  Console.WriteLine(string.Format("Get View Live Feed Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

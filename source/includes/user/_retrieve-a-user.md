@@ -126,22 +126,15 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result = UizaServices.User.Create(new CreatUserParameter()
-  {
-    Status = UserStatus.Active,
-    UserName = Guid.NewGuid().ToString(),
-    Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-    PassWord = Guid.NewGuid().ToString();,
-    FullName = Guid.NewGuid().ToString(),
-    Avatar = "https://static.uiza.io/uiza_logo_128.png"
-  });
+  var result = UizaServices.User.Retrieve("your-user-id");
 
-  var retrieveResult = UizaServices.User.Retrieve((string)result.Data.id);
-  Console.WriteLine(string.Format("Get User Id = {0} Success", retrieveResult.Data.id));
+  Console.WriteLine(string.Format("Get User Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

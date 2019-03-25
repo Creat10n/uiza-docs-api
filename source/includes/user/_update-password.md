@@ -147,6 +147,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -157,29 +161,20 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var curentPW = Guid.NewGuid().ToString();
-  var result = UizaServices.User.Create(new CreatUserParameter()
+  var result = UizaServices.User.ChangePassword(new ChangePasswordParameter()
   {
-    Status = UserStatus.Active,
-    UserName = Guid.NewGuid().ToString(),
-    Email = string.Format("{0}@gmail.com", Guid.NewGuid().ToString()),
-    PassWord = curentPW,
-    FullName = Guid.NewGuid().ToString(),
-    Avatar = "https://static.uiza.io/uiza_logo_128.png"
-  });
-
-  var changePWResult = UizaServices.User.ChangePassword(new ChangePasswordParameter()
-  {
-    Id = (string)result.Data.id,
+    Id = "your-user-id",
     NewPassword = Guid.NewGuid().ToString(),
-    OldPassWord = curentPW,
+    OldPassWord = "curent password",
   });
 
-  Console.WriteLine(string.Format("Change Password User Id = {0} Success", changePWResult.Data.id));
+  Console.WriteLine(string.Format("Change Password User Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
-	var result = ex.UizaInnerException.Error;
+  Console.WriteLine(ex.Message);
+  Console.ReadLine();
 }
 ```
 

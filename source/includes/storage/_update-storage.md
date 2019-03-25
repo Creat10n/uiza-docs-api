@@ -169,6 +169,10 @@ if err != nil {
 ```
 
 ```csharp
+using System;
+using Uiza.Net.Configuration;
+using Uiza.Net.Enums;
+using Uiza.Net.Parameters;
 using Uiza.Net.Services;
 
 UizaConfiguration.SetupUiza(new UizaConfigOptions
@@ -179,9 +183,9 @@ UizaConfiguration.SetupUiza(new UizaConfigOptions
 
 try
 {
-  var result =uizaServices.Storage.Update(new UpdateStorageParameter()
+  var result = uizaServices.Storage.Update(new UpdateStorageParameter()
   {
-    Id = (string)createResult.Data.id,
+    Id = "your-storage-id",
     Name = "FTP Uiza Update",
     Host = "ftp-example.uiza.io",
     Description = "FTP of Uiza, use for transcode Update",
@@ -191,6 +195,7 @@ try
     Port = 22
   });
   Console.WriteLine(string.Format("Update Storage Id = {0} Success", result.Data.id));
+  Console.ReadLine();
 }
 catch (UizaException ex)
 {
