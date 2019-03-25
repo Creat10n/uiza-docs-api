@@ -138,8 +138,12 @@ params := &uiza.UserChangePasswordParams{
   OldPassword: uiza.String("FMpsr<4[dGPu?B#u"),
   NewPassword: uiza.String("S57Eb{:aMZhW=)G$"),
 }
-response, _ := user.ChangePassword(params)
-log.Printf("%s\n", response)
+response, err := user.ChangePassword(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

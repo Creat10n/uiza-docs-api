@@ -111,9 +111,11 @@ params := &uiza.CategoryListParams{
   Limit:uiza.Int64(10),
 }
 
-listData, _ := category.List(params)
-for _, v := range listData {
-  log.Printf("%v\n", v)
+listData, err := category.List(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

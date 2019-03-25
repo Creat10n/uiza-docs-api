@@ -169,8 +169,12 @@ params :=  &uiza.EntityCreateParams{
   Description: uiza.String("Lorem Ipsum is simply dummy text of the printing and typesetting industry"),
 }
 
-response, _ := entity.Create(params)
-log.Printf("%s\n", response)
+response, err := entity.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

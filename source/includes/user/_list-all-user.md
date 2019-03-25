@@ -110,8 +110,12 @@ func init() {
 }
 
 params := &uiza.UserListParams{}
-response, _ := user.List(params)
-log.Printf("%s\n", response)
+response, err := user.List(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

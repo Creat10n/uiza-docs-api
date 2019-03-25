@@ -134,9 +134,11 @@ params := &uiza.AnalyticTypeParams{
   EndDate: uiza.String("2019-02-28"),
   TypeFilter: &analyticTypeFilter,
 }
-response, _ := analytic.GetType(params)
-for _, v := range response {
-  log.Printf("%v\n", v)
+response, err := analytic.GetType(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

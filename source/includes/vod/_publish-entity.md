@@ -110,8 +110,12 @@ func init() {
 }
 
 params := &uiza.EntityPublishParams{ID: uiza.String("your-entity-id")}
-response, _ := entity.Publish(params)
-log.Printf("%v\n", response)
+response, err := entity.Publish(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

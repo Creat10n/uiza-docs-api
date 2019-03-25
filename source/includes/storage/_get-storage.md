@@ -105,8 +105,12 @@ func init() {
 }
 
 params := &uiza.StorageRetrieveParams{ID: uiza.String("your-storage-id")}
-response, _ := storage.Retrieve(params)
-log.Printf("%v\n", response)
+response, err := storage.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

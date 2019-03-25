@@ -135,9 +135,11 @@ params := &uiza.CategoryRelationParams{
   uiza.String("your-category-id-1"),
   uiza.String("your-category-id-2"),
 }}
-response, _ := category.CreateRelation(params)
-for _, v := range response {
-	log.Printf("%v\n", v)
+response, err := category.CreateRelation(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

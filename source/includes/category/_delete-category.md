@@ -108,8 +108,12 @@ func init() {
 }
 
 params := &uiza.CategoryIDParams{ID: uiza.String("your-category-id")}
-response, _ := category.Delete(params)
-log.Printf("%v", response)
+response, err := category.Delete(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

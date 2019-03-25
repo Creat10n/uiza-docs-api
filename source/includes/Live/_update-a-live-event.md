@@ -152,8 +152,12 @@ params := &uiza.LiveUpdateParams{
   Dvr: &dvrType,
   ResourceMode: &resourceMode,
 }
-response, _ := live.Update(params)
-log.Printf("%v\n", response)
+response, err := live.Update(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

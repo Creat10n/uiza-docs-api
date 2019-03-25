@@ -106,8 +106,12 @@ func init() {
 }
 
 params := &uiza.UserIDParams{}
-response, _ := user.LogOut(params)
-log.Printf("%s\n", response)
+response, err := user.LogOut(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

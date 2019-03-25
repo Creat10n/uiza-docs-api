@@ -160,8 +160,12 @@ params :=  &uiza.StorageUpdateParams{
   Description: uiza.String("FTP of Uiza, use for transcode"),
 }
 
-response, _ := storage.Update(params)
-log.Printf("%v\n", response)
+response, err := storage.Update(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

@@ -136,8 +136,12 @@ params := &uiza.CallbackCreateParams{
   Method: &callbackMethodPOST,
 }
 
-response, _ := callback.Create(params)
-log.Printf("%v\n", response)
+response, err := callback.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

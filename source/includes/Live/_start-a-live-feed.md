@@ -108,8 +108,12 @@ func init() {
 }
 
 params := &uiza.LiveIDParams{ID: uiza.String("your-live-id")}
-response, _ := live.StartFeed(params)
-log.Printf("%v\n", response)
+response, err := live.StartFeed(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

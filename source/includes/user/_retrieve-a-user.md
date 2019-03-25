@@ -107,8 +107,12 @@ func init() {
 }
 
 params := &uiza.UserIDParams{ID: uiza.String("your-user-id")}
-response, _ := user.Retrieve(params)
-log.Printf("%s\n", response)
+response, err := user.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

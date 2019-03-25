@@ -107,8 +107,12 @@ func init() {
 }
 
 param := &uiza.LiveIDParams{ID: uiza.String("your-recorded-id")} // Identifier of record (get from list record)
-response, _ := live.ConvertToVOD(param)
-log.Printf("%v\n", response)
+response, err := live.ConvertToVOD(param)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

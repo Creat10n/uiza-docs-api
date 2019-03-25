@@ -107,8 +107,12 @@ func init() {
 }
 
 params := &uiza.EntityDeleteParams{ID: uiza.String("your-entity-id")}
-response, _ := entity.Delete(params)
-log.Printf("%v\n", response)
+response, err := entity.Delete(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

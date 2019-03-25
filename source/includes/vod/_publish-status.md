@@ -108,8 +108,12 @@ func init() {
 }
 
 params := &uiza.EntityPublishParams{ID: uiza.String("your-entity-id")}
-response, _ := entity.GetStatusPublish(params)
-log.Printf("%v\n", response)
+response, err := entity.GetStatusPublish(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

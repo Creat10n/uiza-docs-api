@@ -107,8 +107,12 @@ func init() {
 }
 
 params := &uiza.StorageRemoveParams{ID: uiza.String("your-storage-id")}
-response, _ := storage.Remove(params)
-log.Printf("%v\n", response)
+response, err := storage.Remove(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

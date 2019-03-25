@@ -108,8 +108,12 @@ func init() {
 }
 
 params := &uiza.UserIDParams{ID:uiza.String("your-user-id")}
-response, _ := user.Delete(params)
-log.Printf("%s\n", response)
+response, err := user.Delete(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

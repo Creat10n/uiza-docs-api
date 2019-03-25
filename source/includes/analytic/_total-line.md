@@ -134,10 +134,11 @@ params := &uiza.AnalyticTotalLineParams{
   Metric: &metric,
 }
 
-response, _ := analytic.GetTotalLine(params)
-for _, v := range response {
-  log.Printf("%v", v.DateTime)
-  log.Printf("%v", v.RebufferCount)
+response, err := analytic.GetTotalLine(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

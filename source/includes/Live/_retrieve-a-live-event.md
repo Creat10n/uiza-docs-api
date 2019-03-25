@@ -108,8 +108,12 @@ func init() {
 }
 
 params := &uiza.LiveRetrieveParams{ID: uiza.String("your-live-id")}
-response, _ := live.Retrieve(params)
-log.Printf("%v\n", response)
+response, err := live.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

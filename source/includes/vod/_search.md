@@ -106,9 +106,11 @@ func init() {
 }
 
 params := &uiza.EntitySearchParams{Keyword: uiza.String("Sample")}
-listEntity, _ := entity.Search(params)
-for _, v := range listEntity {
-  log.Printf("%v\n", v)
+listEntity, err := entity.Search(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

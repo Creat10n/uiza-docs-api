@@ -144,8 +144,12 @@ params := &uiza.CategoryUpdateParams{
   OrderNumber:uiza.Int64(2),
 }
 
-response, _ := category.Update(params)
-log.Printf("%v", response)
+response, err := category.Update(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

@@ -135,8 +135,12 @@ params := &uiza.CallbackUpdateParams{
 	Method: &callbackMethodPOST,
 }
 
-response, _ := callback.Update(params)
-log.Printf("%v\n", response)
+response, err := callback.Update(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

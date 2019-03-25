@@ -104,8 +104,12 @@ func init() {
 }
 
 params := &uiza.CallbackIDParams{ID: uiza.String("your-callback-id")}
-response, _ := callback.Retrieve(params)
-log.Printf("%v\n", response)
+response, err := callback.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

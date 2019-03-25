@@ -148,8 +148,12 @@ params := &uiza.CategoryCreateParams{
   OrderNumber:uiza.Int64(1),
 }
 
-response, _ := category.Create(params)
-log.Printf("%v", response)
+response, err := category.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

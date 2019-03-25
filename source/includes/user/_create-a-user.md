@@ -145,7 +145,7 @@ const uiza = require('uiza');
 uiza.workspace_api_domain('your-workspace-api-domain.uiza.co');
 uiza.authorization('your-authorization-key');
 
-uiza.user.create({
+params = {
   'status': 1,
   'username': 'user_test_1',
   'email': 'user_test@uiza.io',
@@ -155,7 +155,9 @@ uiza.user.create({
   'gender': 0,
   'password': 'FMpsr<4[dGPu?B#u',
   'isAdmin': 1
-}).then((res) => {
+};
+
+uiza.user.create(params).then((res) => {
   // Identifier of user has been created
 }).catch((err) => {
   // Error
@@ -184,8 +186,12 @@ params := &uiza.UserCreateParams{
   Gender: uiza.Int64(0),
   IsAdmin: uiza.Int64(1),
 }
-response, _ := user.Create(params)
-log.Printf("%s\n", response)
+response, err := user.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

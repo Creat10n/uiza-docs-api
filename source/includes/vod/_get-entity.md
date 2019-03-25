@@ -110,8 +110,12 @@ func init() {
 }
 
 params := &uiza.EntityRetrieveParams{ID: uiza.String("your-entity-id")}
-response, _ := entity.Retrieve(params)
-log.Printf("%s\n", response)
+response, err := entity.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

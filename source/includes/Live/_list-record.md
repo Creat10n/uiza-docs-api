@@ -110,9 +110,11 @@ params := &uiza.LiveListRecordedParams{
   Limit:uiza.Int64(2),
 }
 
-response, _ := live.ListRecorded(params)
-for _, v := range response {
-  log.Printf("%v\n", v)
+response, err := live.ListRecorded(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

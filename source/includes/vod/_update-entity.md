@@ -133,8 +133,12 @@ params := &uiza.EntityUpdateParams{
   ID: uiza.String("your-entity-id"),
   Name: uiza.String("Update entity name"),
 }
-response, _ := entity.Update(params)
-log.Printf("%v\n", response)
+response, err := entity.Update(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

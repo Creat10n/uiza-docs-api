@@ -105,8 +105,12 @@ func init() {
   Uiza.Authorization = "your-authorization"
 }
 
-response, _ := entity.GetAWSUploadKey()
-log.Printf("%v\n", response)
+response, err := entity.GetAWSUploadKey()
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

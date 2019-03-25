@@ -189,8 +189,12 @@ params := &uiza.LiveCreateParams{
   LinkStream: &[]string{*uiza.String("https://playlist.m3u8")},
   ResourceMode: &resourceMode,
 }
-response, _ := live.Create(params)
-log.Printf("%v\n", response)
+response, err := live.Create(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

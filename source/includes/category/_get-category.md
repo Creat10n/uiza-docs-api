@@ -106,8 +106,12 @@ func init() {
 }
 
 params := &uiza.CategoryIDParams{ID :uiza.String("your-category-id")}
-response, _ := category.Retrieve(params)
-log.Printf("%v\n", response)
+response, err := category.Retrieve(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp

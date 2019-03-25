@@ -133,9 +133,11 @@ params := &uiza.AnalyticLineParams{
   EndDate: uiza.String("2019-02-28"),
   Type:&rebufferCount,
 }
-response, _ := analytic.GetLine(params)
-for _, v := range response {
-  log.Printf("%v\n", v)
+response, err := analytic.GetLine(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
 }
 ```
 

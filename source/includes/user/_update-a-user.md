@@ -176,8 +176,12 @@ params := &uiza.UserUpdateParams{
   Gender: uiza.Int64(1),
   IsAdmin: uiza.Int64(0),
 }
-response, _ := user.Update(params)
-log.Printf("%s\n", response)
+response, err := user.Update(params)
+if err != nil {
+  log.Printf("%v\n", err)
+} else {
+  log.Printf("%v\n", response)
+}
 ```
 
 ```csharp
